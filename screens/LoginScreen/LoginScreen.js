@@ -1,4 +1,12 @@
-import { ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  ImageBackground, Keyboard, KeyboardAvoidingView, Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
@@ -38,33 +46,42 @@ export default function LoginScreen() {
 
   return (
     <>
-      <View style={s.container} onLayout={onLayoutRootView}>
-        <ImageBackground style={s.bg} source={require('../../assets/images/bg.jpg')}>
-          <View style={s.inner}>
-            <Text style={s.title}>Войти</Text>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={s.container} onLayout={onLayoutRootView}>
+          <ImageBackground style={s.bg} source={require('../../assets/images/bg.jpg')}>
+            <View style={s.inner}>
+              <Text style={s.title}>Войти</Text>
+              <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              >
+                <View style={[s.inputWrapper, { marginBottom: 16 }]}>
+                  <TextInput style={s.input} placeholder='Адрес электронной почты' />
+                </View>
+              </KeyboardAvoidingView>
 
-            <View style={[s.inputWrapper, { marginBottom: 16 }]}>
-              <TextInput style={s.input} placeholder='Адрес электронной почты' />
+              <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              >
+                <View style={[s.inputWrapper, { marginBottom: 32 }]}>
+                  <View style={{ flex: 4 }}>
+                    <TextInput style={s.input} placeholder='Пароль' />
+                  </View>
+                  <View>
+                    <TouchableOpacity style={s.btnInput}>
+                      <Text style={s.btnInputText}>Показать</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </KeyboardAvoidingView>
+
+              <View style={{ marginBottom: 16 }}><Btn /></View>
+
+
+              <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
             </View>
-
-            <View style={[s.inputWrapper, {marginBottom: 32}]}>
-              <View style={{ flex: 4 }}>
-                <TextInput style={s.input} placeholder='Пароль' />
-              </View>
-              <View>
-                <TouchableOpacity style={s.btnInput}>
-                  <Text style={s.btnInputText}>Показать</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={{marginBottom: 16}}><Btn /></View>
-
-
-            <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
-          </View>
-        </ImageBackground>
-      </View>
+          </ImageBackground>
+        </View>
+      </TouchableWithoutFeedback>
     </>
   );
 }
