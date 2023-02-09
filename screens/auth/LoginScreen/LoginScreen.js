@@ -48,7 +48,7 @@ export default function LoginScreen() {
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={styles.container} onLayout={onLayoutRootView}>
           <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
-            <View style={[styles.inner, { paddingBottom: isShowKeyboard ? 20 : 144 }]}>
+            <View style={[styles.inner, { paddingBottom: isShowKeyboard ? 32 : 144 }]}>
               <Text style={s.title}>Войти</Text>
               <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -66,7 +66,7 @@ export default function LoginScreen() {
                   />
                 </View>
                 <View style={[s.inputWrapper, hasFocus.password && s.inputWrapperFocus,
-                  { marginBottom: isShowKeyboard ? 16 : 43 }]}>
+                  { marginBottom: isShowKeyboard ? 0 : 43 }]}>
                   <View style={{ flex: 4 }}>
                     <TextInput
                       style={s.input}
