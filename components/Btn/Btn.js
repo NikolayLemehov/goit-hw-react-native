@@ -1,10 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function Btn() {
+export default function Btn({onPress}) {
   return (
     <>
       <View>
-      <TouchableOpacity style={s.btn}>
+      <TouchableOpacity style={s.btn} onPress={onPress}>
         <Text style={s.text}>Показать</Text>
       </TouchableOpacity>
       </View>

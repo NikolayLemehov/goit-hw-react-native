@@ -7,38 +7,20 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import * as Font from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import Btn from '../../components/Btn/Btn';
+import { useFont } from '../../hooks/useFont';
 
 export default function LoginScreen() {
-  const [isReady, setIsReady] = useState(false);
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  // const [values, setValues] = useState({email: '', password: ''});
+  const {isReady, onLayoutRootView} = useFont();
 
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await Font.loadAsync({
-          'Roboto-Medium': require('../../assets/fonts/Roboto-Medium.ttf'),
-          'Roboto-Bold': require('../../assets/fonts/Roboto-Bold.ttf'),
-          'Roboto-Regular': require('../../assets/fonts/Roboto-Regular.ttf'),
-          'Inter-Medium': require('../../assets/fonts/Inter-Medium.ttf'),
-        });
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setIsReady(true);
-      }
-    }
-
-    prepare();
-  }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (isReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [isReady]);
+  const hideKeyboard = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+  };
 
   if (!isReady) {
     return null;
@@ -46,38 +28,44 @@ export default function LoginScreen() {
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={s.container} onLayout={onLayoutRootView}>
           <ImageBackground style={s.bg} source={require('../../assets/images/bg.jpg')}>
-            <View style={s.inner}>
+            <View style={[s.inner, { paddingBottom: isShowKeyboard ? 20 : 144 }]}>
               <Text style={s.title}>Войти</Text>
               <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               >
                 <View style={[s.inputWrapper, { marginBottom: 16 }]}>
-                  <TextInput style={s.input} placeholder='Адрес электронной почты' />
+                  <TextInput
+                    style={s.input}
+                    autoComplete='email'
+                    keyboardType='email-address'
+                    textContentType='emailAddress'
+                    placeholder='Адрес электронной почты'
+                    onFocus={() => setIsShowKeyboard(true)}
+                  />
                 </View>
-              </KeyboardAvoidingView>
-
-              <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              >
                 <View style={[s.inputWrapper, { marginBottom: 32 }]}>
                   <View style={{ flex: 4 }}>
-                    <TextInput style={s.input} placeholder='Пароль' />
+                    <TextInput
+                      style={s.input}
+                      secureTextEntry={isShowPassword}
+                      placeholder='Пароль'
+                      onFocus={() => setIsShowKeyboard(true)}
+                    />
                   </View>
                   <View>
                     <TouchableOpacity style={s.btnInput}>
-                      <Text style={s.btnInputText}>Показать</Text>
+                      <Text style={s.btnInputText} onPress={() => setIsShowPassword(p => !p)}>Показать</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
+
+                <View style={{ marginBottom: 16 }}><Btn onPress={hideKeyboard}/></View>
+
+                <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
               </KeyboardAvoidingView>
-
-              <View style={{ marginBottom: 16 }}><Btn /></View>
-
-
-              <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
             </View>
           </ImageBackground>
         </View>
