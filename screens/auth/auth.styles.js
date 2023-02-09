@@ -30,8 +30,8 @@ export const authStyles = StyleSheet.create({
     borderColor: '#FF6C00',
   },
   btnInput: {
-    padding: 10,
-    paddingRight: 16,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
   },
   btnInputText: {
     fontFamily: 'Roboto-Regular',
