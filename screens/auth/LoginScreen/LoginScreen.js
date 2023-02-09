@@ -8,8 +8,8 @@ import {
   View,
 } from 'react-native';
 import { useState } from 'react';
-import Btn from '../../components/Btn/Btn';
-import { useFont } from '../../hooks/useFont';
+import Btn from '../../../components/Btn/Btn';
+import { useFont } from '../../../hooks/useFont';
 
 const initValues = {email: '', password: ''};
 const initFocus = {email: false, password: false};
@@ -46,7 +46,7 @@ export default function LoginScreen() {
     <>
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={s.container} onLayout={onLayoutRootView}>
-          <ImageBackground style={s.bg} source={require('../../assets/images/bg.jpg')}>
+          <ImageBackground style={s.bg} source={require('../../../assets/images/bg.jpg')}>
             <View style={[s.inner, { paddingBottom: isShowKeyboard ? 20 : 144 }]}>
               <Text style={s.title}>Войти</Text>
               <KeyboardAvoidingView
