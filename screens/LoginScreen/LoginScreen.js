@@ -11,10 +11,12 @@ import { useState } from 'react';
 import Btn from '../../components/Btn/Btn';
 import { useFont } from '../../hooks/useFont';
 
+const initValues = {email: '', password: ''}
+
 export default function LoginScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
-  // const [values, setValues] = useState({email: '', password: ''});
+  const [values, setValues] = useState(initValues);
   const {isReady, onLayoutRootView} = useFont();
 
   const hideKeyboard = () => {
@@ -24,6 +26,9 @@ export default function LoginScreen() {
 
   if (!isReady) {
     return null;
+  }
+  const onChangeText = (value, name) => {
+    setValues(v => ({...v, [name]: value}))
   }
 
   return (
@@ -43,6 +48,7 @@ export default function LoginScreen() {
                     keyboardType='email-address'
                     textContentType='emailAddress'
                     placeholder='Адрес электронной почты'
+                      onChangeText={v => onChangeText(v, 'email')}
                     onFocus={() => setIsShowKeyboard(true)}
                   />
                 </View>
@@ -52,6 +58,7 @@ export default function LoginScreen() {
                       style={s.input}
                       secureTextEntry={isShowPassword}
                       placeholder='Пароль'
+                      onChangeText={v => onChangeText(v, 'password')}
                       onFocus={() => setIsShowKeyboard(true)}
                     />
                   </View>
@@ -62,7 +69,12 @@ export default function LoginScreen() {
                   </View>
                 </View>
 
-                <View style={{ marginBottom: 16 }}><Btn onPress={hideKeyboard}/></View>
+                <View style={{ marginBottom: 16 }}>
+                  <Btn onPress={() => {
+                    hideKeyboard();
+                    console.log(values)
+                  }} text='Войти'/>
+                </View>
 
                 <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
               </KeyboardAvoidingView>
