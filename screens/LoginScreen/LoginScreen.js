@@ -11,12 +11,14 @@ import { useState } from 'react';
 import Btn from '../../components/Btn/Btn';
 import { useFont } from '../../hooks/useFont';
 
-const initValues = {email: '', password: ''}
+const initValues = {email: '', password: ''};
+const initFocus = {email: false, password: false};
 
 export default function LoginScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
+  const [hasFocus, setHasFocus] = useState(initFocus);
   const {isReady, onLayoutRootView} = useFont();
 
   const hideKeyboard = () => {
@@ -31,6 +33,15 @@ export default function LoginScreen() {
     setValues(v => ({...v, [name]: value}))
   }
 
+  const onInputFocus = (name) => {
+    setIsShowKeyboard(true);
+    setHasFocus(p => ({...p, [name]: true}))
+  };
+
+  const onInputBlur = (name) => {
+    setHasFocus(p => ({...p, [name]: false}))
+  }
+
   return (
     <>
       <TouchableWithoutFeedback onPress={hideKeyboard}>
@@ -41,25 +52,27 @@ export default function LoginScreen() {
               <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               >
-                <View style={[s.inputWrapper, { marginBottom: 16 }]}>
+                <View style={[s.inputWrapper, hasFocus.email && s.inputWrapperFocus, { marginBottom: 16 }]}>
                   <TextInput
                     style={s.input}
                     autoComplete='email'
                     keyboardType='email-address'
                     textContentType='emailAddress'
                     placeholder='Адрес электронной почты'
-                      onChangeText={v => onChangeText(v, 'email')}
-                    onFocus={() => setIsShowKeyboard(true)}
+                    onChangeText={v => onChangeText(v, 'email')}
+                    onFocus={() => onInputFocus('email')}
+                    onBlur={() => onInputBlur('email')}
                   />
                 </View>
-                <View style={[s.inputWrapper, { marginBottom: 32 }]}>
+                <View style={[s.inputWrapper, hasFocus.password && s.inputWrapperFocus, { marginBottom: 32 }]}>
                   <View style={{ flex: 4 }}>
                     <TextInput
                       style={s.input}
                       secureTextEntry={isShowPassword}
                       placeholder='Пароль'
                       onChangeText={v => onChangeText(v, 'password')}
-                      onFocus={() => setIsShowKeyboard(true)}
+                      onFocus={() => onInputFocus('password')}
+                      onBlur={() => onInputBlur('password')}
                     />
                   </View>
                   <View>
@@ -126,6 +139,10 @@ const s = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E8E8E8',
     borderRadius: 8,
+  },
+  inputWrapperFocus: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#FF6C00',
   },
   btnInput: {
     padding: 10,

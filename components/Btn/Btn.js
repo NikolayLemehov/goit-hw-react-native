@@ -1,12 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function Btn({onPress, text}) {
+export default function Btn({ onPress, text }) {
   return (
     <>
       <View>
-      <TouchableOpacity style={s.btn} onPress={onPress}>
-        <Text style={s.text}>{text}</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={s.btn} onPress={onPress}>
+          <Text style={s.text}>{text}</Text>
+        </TouchableOpacity>
       </View>
     </>
   );
@@ -28,7 +28,7 @@ const s = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     alignItems: 'center',
-    color: '#ffffff'
+    color: '#ffffff',
     // justifyContent: 'center',
   },
 });
