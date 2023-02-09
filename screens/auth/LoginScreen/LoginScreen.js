@@ -12,15 +12,15 @@ import Btn from '../../../components/Btn/Btn';
 import { useFont } from '../../../hooks/useFont';
 import { authStyles as s } from '../auth.styles';
 
-const initValues = {email: '', password: ''};
-const initFocus = {email: false, password: false};
+const initValues = { email: '', password: '' };
+const initFocus = { email: false, password: false };
 
 export default function LoginScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
   const [hasFocus, setHasFocus] = useState(initFocus);
-  const {isReady, onLayoutRootView} = useFont();
+  const { isReady, onLayoutRootView } = useFont();
 
   const hideKeyboard = () => {
     setIsShowKeyboard(false);
@@ -31,17 +31,17 @@ export default function LoginScreen() {
     return null;
   }
   const onChangeText = (value, name) => {
-    setValues(v => ({...v, [name]: value}))
-  }
+    setValues(v => ({ ...v, [name]: value }));
+  };
 
   const onInputFocus = (name) => {
     setIsShowKeyboard(true);
-    setHasFocus(p => ({...p, [name]: true}))
+    setHasFocus(p => ({ ...p, [name]: true }));
   };
 
   const onInputBlur = (name) => {
-    setHasFocus(p => ({...p, [name]: false}))
-  }
+    setHasFocus(p => ({ ...p, [name]: false }));
+  };
 
   return (
     <>
@@ -65,7 +65,8 @@ export default function LoginScreen() {
                     onBlur={() => onInputBlur('email')}
                   />
                 </View>
-                <View style={[s.inputWrapper, hasFocus.password && s.inputWrapperFocus, { marginBottom: 32 }]}>
+                <View style={[s.inputWrapper, hasFocus.password && s.inputWrapperFocus,
+                  { marginBottom: isShowKeyboard ? 16 : 43 }]}>
                   <View style={{ flex: 4 }}>
                     <TextInput
                       style={s.input}
@@ -82,15 +83,18 @@ export default function LoginScreen() {
                     </TouchableOpacity>
                   </View>
                 </View>
+                {!isShowKeyboard && (
+                  <>
+                    <View style={{ marginBottom: 16 }}>
+                      <Btn onPress={() => {
+                        hideKeyboard();
+                        console.log(values);
+                      }} text='Войти' />
+                    </View>
 
-                <View style={{ marginBottom: 16 }}>
-                  <Btn onPress={() => {
-                    hideKeyboard();
-                    console.log(values)
-                  }} text='Войти'/>
-                </View>
-
-                <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
+                    <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
+                  </>
+                )}
               </KeyboardAvoidingView>
             </View>
           </ImageBackground>
@@ -117,42 +121,4 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },
-  // input: {
-  //   padding: 16,
-  // },
-  // title: {
-  //   paddingBottom: 32,
-  //   fontSize: 30,
-  //   lineHeight: 35,
-  //   textAlign: 'center',
-  // },
-  // text: {
-  //   fontFamily: 'Roboto-Regular',
-  //   fontSize: 16,
-  //   lineHeight: 19,
-  //   textAlign: 'center',
-  //   color: '#1B4371',
-  // },
-  // inputWrapper: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   backgroundColor: '#F6F6F6',
-  //   borderWidth: 1,
-  //   borderColor: '#E8E8E8',
-  //   borderRadius: 8,
-  // },
-  // inputWrapperFocus: {
-  //   backgroundColor: '#FFFFFF',
-  //   borderColor: '#FF6C00',
-  // },
-  // btnInput: {
-  //   padding: 10,
-  //   paddingRight: 16,
-  // },
-  // btnInputText: {
-  //   fontFamily: 'Roboto-Regular',
-  //   fontSize: 16,
-  //   lineHeight: 19,
-  //   color: '#1B4371',
-  // },
 });
