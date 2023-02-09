@@ -10,6 +10,7 @@ import {
 import { useState } from 'react';
 import Btn from '../../../components/Btn/Btn';
 import { useFont } from '../../../hooks/useFont';
+import { authStyles as s } from '../auth.styles';
 
 const initValues = {email: '', password: ''};
 const initFocus = {email: false, password: false};
@@ -45,9 +46,9 @@ export default function LoginScreen() {
   return (
     <>
       <TouchableWithoutFeedback onPress={hideKeyboard}>
-        <View style={s.container} onLayout={onLayoutRootView}>
-          <ImageBackground style={s.bg} source={require('../../../assets/images/bg.jpg')}>
-            <View style={[s.inner, { paddingBottom: isShowKeyboard ? 20 : 144 }]}>
+        <View style={styles.container} onLayout={onLayoutRootView}>
+          <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
+            <View style={[styles.inner, { paddingBottom: isShowKeyboard ? 20 : 144 }]}>
               <Text style={s.title}>Войти</Text>
               <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -99,7 +100,7 @@ export default function LoginScreen() {
   );
 }
 
-const s = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -116,42 +117,42 @@ const s = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },
-  input: {
-    padding: 16,
-  },
-  title: {
-    paddingBottom: 32,
-    fontSize: 30,
-    lineHeight: 35,
-    textAlign: 'center',
-  },
-  text: {
-    fontFamily: 'Roboto-Regular',
-    fontSize: 16,
-    lineHeight: 19,
-    textAlign: 'center',
-    color: '#1B4371',
-  },
-  inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F6F6F6',
-    borderWidth: 1,
-    borderColor: '#E8E8E8',
-    borderRadius: 8,
-  },
-  inputWrapperFocus: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#FF6C00',
-  },
-  btnInput: {
-    padding: 10,
-    paddingRight: 16,
-  },
-  btnInputText: {
-    fontFamily: 'Roboto-Regular',
-    fontSize: 16,
-    lineHeight: 19,
-    color: '#1B4371',
-  },
+  // input: {
+  //   padding: 16,
+  // },
+  // title: {
+  //   paddingBottom: 32,
+  //   fontSize: 30,
+  //   lineHeight: 35,
+  //   textAlign: 'center',
+  // },
+  // text: {
+  //   fontFamily: 'Roboto-Regular',
+  //   fontSize: 16,
+  //   lineHeight: 19,
+  //   textAlign: 'center',
+  //   color: '#1B4371',
+  // },
+  // inputWrapper: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   backgroundColor: '#F6F6F6',
+  //   borderWidth: 1,
+  //   borderColor: '#E8E8E8',
+  //   borderRadius: 8,
+  // },
+  // inputWrapperFocus: {
+  //   backgroundColor: '#FFFFFF',
+  //   borderColor: '#FF6C00',
+  // },
+  // btnInput: {
+  //   padding: 10,
+  //   paddingRight: 16,
+  // },
+  // btnInputText: {
+  //   fontFamily: 'Roboto-Regular',
+  //   fontSize: 16,
+  //   lineHeight: 19,
+  //   color: '#1B4371',
+  // },
 });
