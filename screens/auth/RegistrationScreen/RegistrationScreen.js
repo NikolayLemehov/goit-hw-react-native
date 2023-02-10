@@ -108,7 +108,6 @@ export default function RegistrationScreen() {
                   <>
                     <View style={{ marginBottom: 16 }}>
                       <Btn onPress={() => {
-                        hideKeyboard();
                         console.log(values);
                       }} text='Зареєструватись' />
                     </View>
