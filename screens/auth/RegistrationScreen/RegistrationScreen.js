@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Btn from '../../../components/Btn/Btn';
 import { useFont } from '../../../hooks/useFont';
 import { authStyles as s } from '../auth.styles';
@@ -24,12 +24,25 @@ export default function RegistrationScreen() {
   const { isReady, onLayoutRootView } = useFont();
   const [isEmptyAvatar, setIsEmptyAvatar] = useState(true);
 
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setIsShowKeyboard(true);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setIsShowKeyboard(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
   if (!isReady) {
     return null;
   }
 
   const hideKeyboard = () => {
-    setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
 
@@ -38,13 +51,14 @@ export default function RegistrationScreen() {
   };
 
   const onInputFocus = (name) => {
-    setIsShowKeyboard(true);
     setHasFocus(p => ({ ...p, [name]: true }));
   };
 
   const onInputBlur = (name) => {
     setHasFocus(p => ({ ...p, [name]: false }));
   };
+
+
 
   return (
     <>
