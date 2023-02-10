@@ -46,12 +46,6 @@ export default function RegistrationScreen() {
     setHasFocus(p => ({ ...p, [name]: false }));
   };
 
-  const onLayoutInner = (e) => {
-    console.log(e.nativeEvent.layout);
-  };
-
-  console.log(isShowPassword)
-
   return (
     <>
       <KeyboardAvoidingView
@@ -63,7 +57,6 @@ export default function RegistrationScreen() {
             <ImageBackground style={st.bg} source={require('../../../assets/images/bg.jpg')}>
               <View
                 style={[st.inner, { paddingBottom: isShowKeyboard ? 32 : 78 }]}
-                onLayout={onLayoutInner}
               >
 
                 <View style={st.avatarWrapper}>
