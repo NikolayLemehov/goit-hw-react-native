@@ -45,14 +45,15 @@ export default function LoginScreen() {
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={hideKeyboard}>
-        <View style={styles.container} onLayout={onLayoutRootView}>
-          <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
-            <View style={[styles.inner, { paddingBottom: isShowKeyboard ? 32 : 144 }]}>
-              <Text style={s.title}>Войти</Text>
-              <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              >
+      <KeyboardAvoidingView
+        style={{flex: 1}}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <TouchableWithoutFeedback onPress={hideKeyboard}>
+          <View style={styles.container} onLayout={onLayoutRootView}>
+            <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
+              <View style={[styles.inner, { paddingBottom: isShowKeyboard ? 32 : 144 }]}>
+                <Text style={s.title}>Войти</Text>
                 <View style={[s.inputWrapper, hasFocus.email && s.inputWrapperFocus, { marginBottom: 16 }]}>
                   <TextInput
                     style={s.input}
@@ -95,11 +96,11 @@ export default function LoginScreen() {
                     <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
                   </>
                 )}
-              </KeyboardAvoidingView>
-            </View>
-          </ImageBackground>
-        </View>
-      </TouchableWithoutFeedback>
+              </View>
+            </ImageBackground>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </>
   );
 }
