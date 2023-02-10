@@ -7,50 +7,31 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Btn from '../../../components/Btn/Btn';
 import { useFont } from '../../../hooks/useFont';
 import { authStyles as s } from '../auth.styles';
 import Avatar from '../../../components/Avatar/Avatar';
+import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
 
 const initValues = { email: '', password: '', nickname: '' };
 const initFocus = { email: false, password: false, nickname: false };
 
 export default function RegistrationScreen() {
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [isShowKeyboard, setIsShowKeyboard] = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
   const [hasFocus, setHasFocus] = useState(initFocus);
   const { isReady, onLayoutRootView } = useFont();
   const [isEmptyAvatar, setIsEmptyAvatar] = useState(true);
 
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
-      setIsShowKeyboard(true);
-    });
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      setIsShowKeyboard(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
-
-  if (!isReady) {
-    return null;
-  }
-
-  const hideKeyboard = () => {
-    Keyboard.dismiss();
-  };
 
   const onChangeText = (value, name) => {
     setValues(v => ({ ...v, [name]: value }));
   };
 
   const onInputFocus = (name) => {
+    setIsShowKeyboard(true);
     setHasFocus(p => ({ ...p, [name]: true }));
   };
 
@@ -58,7 +39,9 @@ export default function RegistrationScreen() {
     setHasFocus(p => ({ ...p, [name]: false }));
   };
 
-
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <>
@@ -66,7 +49,7 @@ export default function RegistrationScreen() {
         style={{flex: 1}}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={st.container} onLayout={onLayoutRootView}>
             <ImageBackground style={st.bg} source={require('../../../assets/images/bg.jpg')}>
               <View

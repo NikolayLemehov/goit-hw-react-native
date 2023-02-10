@@ -11,25 +11,17 @@ import { useState } from 'react';
 import Btn from '../../../components/Btn/Btn';
 import { useFont } from '../../../hooks/useFont';
 import { authStyles as s } from '../auth.styles';
+import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
 
 const initValues = { email: '', password: '' };
 const initFocus = { email: false, password: false };
 
 export default function LoginScreen() {
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [isShowKeyboard, setIsShowKeyboard] = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
   const [hasFocus, setHasFocus] = useState(initFocus);
   const { isReady, onLayoutRootView } = useFont();
-
-  const hideKeyboard = () => {
-    setIsShowKeyboard(false);
-    Keyboard.dismiss();
-  };
-
-  if (!isReady) {
-    return null;
-  }
   const onChangeText = (value, name) => {
     setValues(v => ({ ...v, [name]: value }));
   };
@@ -43,13 +35,17 @@ export default function LoginScreen() {
     setHasFocus(p => ({ ...p, [name]: false }));
   };
 
+  if (!isReady) {
+    return null;
+  }
+
   return (
     <>
       <KeyboardAvoidingView
         style={{flex: 1}}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.container} onLayout={onLayoutRootView}>
             <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
               <View style={[styles.inner, { paddingBottom: isShowKeyboard ? 32 : 144 }]}>
@@ -88,7 +84,6 @@ export default function LoginScreen() {
                   <>
                     <View style={{ marginBottom: 16 }}>
                       <Btn onPress={() => {
-                        hideKeyboard();
                         console.log(values);
                       }} text='Войти' />
                     </View>
