@@ -49,14 +49,14 @@ export default function LoginScreen() {
           <View style={styles.container} onLayout={onLayoutRootView}>
             <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
               <View style={[styles.inner, { paddingBottom: isShowKeyboard ? 32 : 144 }]}>
-                <Text style={s.title}>Войти</Text>
+                <Text style={s.title}>Увійти</Text>
                 <View style={[s.inputWrapper, hasFocus.email && s.inputWrapperFocus, { marginBottom: 16 }]}>
                   <TextInput
                     style={s.input}
                     autoComplete='email'
                     keyboardType='email-address'
                     textContentType='emailAddress'
-                    placeholder='Адрес электронной почты'
+                    placeholder='Адреса електроної пошти'
                     onChangeText={v => onChangeText(v, 'email')}
                     onFocus={() => onInputFocus('email')}
                     onBlur={() => onInputBlur('email')}
@@ -76,7 +76,7 @@ export default function LoginScreen() {
                   </View>
                   <View>
                     <TouchableOpacity style={s.btnInput}>
-                      <Text style={s.btnInputText} onPress={() => setIsShowPassword(p => !p)}>Показать</Text>
+                      <Text style={s.btnInputText} onPress={() => setIsShowPassword(p => !p)}>Показати</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -88,7 +88,7 @@ export default function LoginScreen() {
                       }} text='Войти' />
                     </View>
 
-                    <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
+                    <Text style={s.text}>Немає акаунта? Зареєструватись</Text>
                   </>
                 )}
               </View>
