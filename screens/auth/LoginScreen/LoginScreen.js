@@ -70,7 +70,7 @@ export default function LoginScreen() {
                   <View style={{ flex: 4 }}>
                     <TextInput
                       style={s.input}
-                      secureTextEntry={isShowPassword}
+                      secureTextEntry={!isShowPassword}
                       placeholder='Пароль'
                       onChangeText={v => onChangeText(v, 'password')}
                       onFocus={() => onInputFocus('password')}

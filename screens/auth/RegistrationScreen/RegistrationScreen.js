@@ -50,7 +50,7 @@ export default function RegistrationScreen() {
     console.log(e.nativeEvent.layout);
   };
 
-  // console.log(hasFocus.password)
+  console.log(isShowPassword)
 
   return (
     <>
@@ -101,7 +101,7 @@ export default function RegistrationScreen() {
                   <View style={{ flex: 4 }}>
                     <TextInput
                       style={s.input}
-                      secureTextEntry={isShowPassword}
+                      secureTextEntry={!isShowPassword}
                       placeholder='Пароль'
                       onChangeText={v => onChangeText(v, 'password')}
                       onFocus={() => onInputFocus('password')}
