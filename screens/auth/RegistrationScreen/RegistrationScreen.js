@@ -11,55 +11,75 @@ import { useState } from 'react';
 import Btn from '../../../components/Btn/Btn';
 import { useFont } from '../../../hooks/useFont';
 import { authStyles as s } from '../auth.styles';
+import Avatar from '../../../components/Avatar/Avatar';
 
-const initValues = {email: '', password: '', nickname: ''};
-const initFocus = {email: false, password: false, nickname: false};
+const initValues = { email: '', password: '', nickname: '' };
+const initFocus = { email: false, password: false, nickname: false };
 
 export default function RegistrationScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
   const [hasFocus, setHasFocus] = useState(initFocus);
-  const {isReady, onLayoutRootView} = useFont();
+  const { isReady, onLayoutRootView } = useFont();
+  const [isEmptyAvatar, setIsEmptyAvatar] = useState(true);
+
+  if (!isReady) {
+    return null;
+  }
 
   const hideKeyboard = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
 
-  if (!isReady) {
-    return null;
-  }
   const onChangeText = (value, name) => {
-    setValues(v => ({...v, [name]: value}))
-  }
+    setValues(v => ({ ...v, [name]: value }));
+  };
 
   const onInputFocus = (name) => {
     setIsShowKeyboard(true);
-    setHasFocus(p => ({...p, [name]: true}))
+    setHasFocus(p => ({ ...p, [name]: true }));
   };
 
   const onInputBlur = (name) => {
-    setHasFocus(p => ({...p, [name]: false}))
+    setHasFocus(p => ({ ...p, [name]: false }));
+  };
+
+  const onLayoutInner = (e) => {
+    console.log(e.nativeEvent.layout)
   }
+
+  // console.log(hasFocus.password)
 
   return (
     <>
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={st.container} onLayout={onLayoutRootView}>
           <ImageBackground style={st.bg} source={require('../../../assets/images/bg.jpg')}>
-            <View style={[st.inner, { paddingBottom: isShowKeyboard ? 20 : 144 }]}>
-              <Text style={s.title}>Регистрация</Text>
+            <View
+              style={[st.inner, { paddingBottom: isShowKeyboard ? 32 : 78 }]}
+              onLayout={onLayoutInner}
+            >
+
+              <View style={st.avatarWrapper}>
+                <View style={st.avatar}>
+                  <Avatar isEmpty={isEmptyAvatar} onClickBtn={setIsEmptyAvatar} />
+                </View>
+              </View>
+
+              <Text style={s.title}>Реєстрація</Text>
               <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               >
-                <View style={[s.inputWrapper, hasFocus.email && s.inputWrapperFocus, { marginBottom: 16 }]}>
+                <View style={[s.inputWrapper, hasFocus.nickname && s.inputWrapperFocus,
+                  { marginBottom: 16 }]}>
                   <TextInput
                     style={s.input}
-                    placeholder='Логин'
-                    onChangeText={v => onChangeText(v, 'email')}
-                    onFocus={() => onInputFocus('email')}
-                    onBlur={() => onInputBlur('email')}
+                    placeholder='Логін'
+                    onChangeText={v => onChangeText(v, 'nickname')}
+                    onFocus={() => onInputFocus('nickname')}
+                    onBlur={() => onInputBlur('nickname')}
                   />
                 </View>
                 <View style={[s.inputWrapper, hasFocus.email && s.inputWrapperFocus, { marginBottom: 16 }]}>
@@ -68,13 +88,15 @@ export default function RegistrationScreen() {
                     autoComplete='email'
                     keyboardType='email-address'
                     textContentType='emailAddress'
-                    placeholder='Адрес электронной почты'
+                    placeholder='Адреса електроної пошти'
                     onChangeText={v => onChangeText(v, 'email')}
                     onFocus={() => onInputFocus('email')}
                     onBlur={() => onInputBlur('email')}
                   />
                 </View>
-                <View style={[s.inputWrapper, hasFocus.password && s.inputWrapperFocus, { marginBottom: 32 }]}>
+                <View
+                  style={[s.inputWrapper, hasFocus.password && s.inputWrapperFocus, { marginBottom: isShowKeyboard ? 0 : 43 }]}
+                >
                   <View style={{ flex: 4 }}>
                     <TextInput
                       style={s.input}
@@ -87,19 +109,22 @@ export default function RegistrationScreen() {
                   </View>
                   <View>
                     <TouchableOpacity style={s.btnInput}>
-                      <Text style={s.btnInputText} onPress={() => setIsShowPassword(p => !p)}>Показать</Text>
+                      <Text style={s.btnInputText} onPress={() => setIsShowPassword(p => !p)}>Показати</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
+                {!isShowKeyboard && (
+                  <>
+                    <View style={{ marginBottom: 16 }}>
+                      <Btn onPress={() => {
+                        hideKeyboard();
+                        console.log(values);
+                      }} text='Зареєструватись' />
+                    </View>
 
-                <View style={{ marginBottom: 16 }}>
-                  <Btn onPress={() => {
-                    hideKeyboard();
-                    console.log(values)
-                  }} text='Войти'/>
-                </View>
-
-                <Text style={s.text}>Нет аккаунта? Зарегистрироваться</Text>
+                    <Text style={s.text}>Вже є акаунт? Увійти</Text>
+                  </>
+                )}
               </KeyboardAvoidingView>
             </View>
           </ImageBackground>
@@ -119,12 +144,26 @@ const st = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   inner: {
-    paddingTop: 32,
+    position: 'relative',
+    paddingTop: 92,
     paddingHorizontal: 16,
-    paddingBottom: 144,
     backgroundColor: '#ffffff',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+  },
+  avatarWrapper: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    height: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderWidth: 1,
+    // borderColor: 'red',
+  },
+  avatar: {
+    position: 'absolute',
   },
 });
 
