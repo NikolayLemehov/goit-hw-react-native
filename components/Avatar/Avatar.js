@@ -2,20 +2,17 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import AddIcon from '../svg/AddIcon/AddIcon';
 import DeleteIcon from '../svg/DeleteIcon/DeleteIcon';
 
-export default function Avatar({isEmpty, onClickBtn}) {
+export default function Avatar({ isEmpty, onClickBtn }) {
   const onPressBtn = () => {
     onClickBtn(!isEmpty);
-  }
+  };
 
   return (
     <View style={st.container}>
       {!isEmpty && <Image style={st.img} source={require('../../assets/images/avatar.png')} />}
-      {/*<Image />*/}
-      {/*<View>*/}
-        <TouchableOpacity style={st.btn} onPress={onPressBtn}>
-          {isEmpty ? <AddIcon/> : <DeleteIcon/>}
-        </TouchableOpacity>
-      {/*</View>*/}
+      <TouchableOpacity style={st.btn} onPress={onPressBtn}>
+        {isEmpty ? <AddIcon /> : <DeleteIcon />}
+      </TouchableOpacity>
     </View>
   );
 }
