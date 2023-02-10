@@ -47,31 +47,32 @@ export default function RegistrationScreen() {
   };
 
   const onLayoutInner = (e) => {
-    console.log(e.nativeEvent.layout)
-  }
+    console.log(e.nativeEvent.layout);
+  };
 
   // console.log(hasFocus.password)
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={hideKeyboard}>
-        <View style={st.container} onLayout={onLayoutRootView}>
-          <ImageBackground style={st.bg} source={require('../../../assets/images/bg.jpg')}>
-            <View
-              style={[st.inner, { paddingBottom: isShowKeyboard ? 32 : 78 }]}
-              onLayout={onLayoutInner}
-            >
-
-              <View style={st.avatarWrapper}>
-                <View style={st.avatar}>
-                  <Avatar isEmpty={isEmptyAvatar} onClickBtn={setIsEmptyAvatar} />
-                </View>
-              </View>
-
-              <Text style={s.title}>Реєстрація</Text>
-              <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      <KeyboardAvoidingView
+        style={{flex: 1}}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <TouchableWithoutFeedback onPress={hideKeyboard}>
+          <View style={st.container} onLayout={onLayoutRootView}>
+            <ImageBackground style={st.bg} source={require('../../../assets/images/bg.jpg')}>
+              <View
+                style={[st.inner, { paddingBottom: isShowKeyboard ? 32 : 78 }]}
+                onLayout={onLayoutInner}
               >
+
+                <View style={st.avatarWrapper}>
+                  <View style={st.avatar}>
+                    <Avatar isEmpty={isEmptyAvatar} onClickBtn={setIsEmptyAvatar} />
+                  </View>
+                </View>
+
+                <Text style={s.title}>Реєстрація</Text>
                 <View style={[s.inputWrapper, hasFocus.nickname && s.inputWrapperFocus,
                   { marginBottom: 16 }]}>
                   <TextInput
@@ -125,11 +126,11 @@ export default function RegistrationScreen() {
                     <Text style={s.text}>Вже є акаунт? Увійти</Text>
                   </>
                 )}
-              </KeyboardAvoidingView>
-            </View>
-          </ImageBackground>
-        </View>
-      </TouchableWithoutFeedback>
+              </View>
+            </ImageBackground>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </>
   );
 }
