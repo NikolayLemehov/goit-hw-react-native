@@ -112,7 +112,9 @@ export default function RegistrationScreen({navigation}) {
                       }} text='Зареєструватись' />
                     </View>
 
-                    <Text style={s.text} onPress={() => navigation.navigate('login')}>Вже є акаунт? Увійти</Text>
+                    <Text style={s.text}>
+                      Вже є акаунт? <Text onPress={() => navigation.navigate('login')}>Увійти</Text>
+                    </Text>
                   </>
                 )}
               </View>

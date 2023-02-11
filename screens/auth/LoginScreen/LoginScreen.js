@@ -16,7 +16,7 @@ import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
 const initValues = { email: '', password: '' };
 const initFocus = { email: false, password: false };
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
@@ -42,7 +42,7 @@ export default function LoginScreen({navigation}) {
   return (
     <>
       <KeyboardAvoidingView
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -88,7 +88,9 @@ export default function LoginScreen({navigation}) {
                       }} text='Войти' />
                     </View>
 
-                    <Text style={s.text} onPress={() => navigation.navigate('registration')}>Немає акаунта? Зареєструватись</Text>
+                    <Text style={s.text}>
+                      Немає акаунта? <Text onPress={() => navigation.navigate('registration')}>Зареєструватись</Text>
+                    </Text>
                   </>
                 )}
               </View>
