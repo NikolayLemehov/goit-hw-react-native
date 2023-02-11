@@ -16,7 +16,7 @@ import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
 const initValues = { email: '', password: '' };
 const initFocus = { email: false, password: false };
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
   const [isShowKeyboard, setIsShowKeyboard] = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
@@ -88,7 +88,7 @@ export default function LoginScreen() {
                       }} text='Войти' />
                     </View>
 
-                    <Text style={s.text}>Немає акаунта? Зареєструватись</Text>
+                    <Text style={s.text} onPress={() => navigation.navigate('registration')}>Немає акаунта? Зареєструватись</Text>
                   </>
                 )}
               </View>
