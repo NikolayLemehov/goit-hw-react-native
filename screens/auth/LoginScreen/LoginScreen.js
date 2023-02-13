@@ -12,11 +12,13 @@ import Btn from '../../../components/Btn/Btn';
 import { useFont } from '../../../hooks/useFont';
 import { authStyles as s } from '../auth.styles';
 import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
+import { useNavigation } from '@react-navigation/native';
 
 const initValues = { email: '', password: '' };
 const initFocus = { email: false, password: false };
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ setIsAuth }) {
+  const navigation = useNavigation();
   const [isShowKeyboard, setIsShowKeyboard] = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
@@ -75,17 +77,24 @@ export default function LoginScreen({ navigation }) {
                     />
                   </View>
                   <View>
-                    <TouchableOpacity style={s.btnInput}>
-                      <Text style={s.btnInputText} onPress={() => setIsShowPassword(p => !p)}>Показати</Text>
+                    <TouchableOpacity
+                      style={s.btnInput}
+                      onPress={() => setIsShowPassword(p => !p)}
+                    >
+                      <Text style={s.btnInputText}>Показати</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
                 {!isShowKeyboard && (
                   <>
                     <View style={{ marginBottom: 16 }}>
-                      <Btn onPress={() => {
-                        console.log(values);
-                      }} text='Войти' />
+                      <Btn
+                        onPress={() => {
+                          console.log(values);
+                          setIsAuth(true);
+                        }}
+                        text='Войти'
+                      />
                     </View>
 
                     <Text style={s.text}>

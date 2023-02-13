@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-export default function PostsScreen() {
+export default function CreatePostsScreen() {
   return (
     <View
       style={{
@@ -9,7 +9,7 @@ export default function PostsScreen() {
         alignItems: 'center',
       }}
     >
-      <Text style={{paddingHorizontal: 30}}>PostsScreen</Text>
+      <Text>CreatePostsScreen</Text>
     </View>
   );
 }

@@ -3,13 +3,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScreen from './screens/mainScreen/ProfileScreen';
-import CreateScreen from './screens/mainScreen/CreateScreen';
+import CreatePostsScreen from './screens/mainScreen/CreatePostsScreen';
 import PostsScreen from './screens/mainScreen/PostsScreen';
 import RegistrationScreen from './screens/auth/RegistrationScreen/RegistrationScreen';
 import LoginScreen from './screens/auth/LoginScreen/LoginScreen';
+import mainTab from './variables/mainTab';
 
 export default function App() {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
   const AuthStack = createStackNavigator();
   const MainTab = createBottomTabNavigator();
@@ -20,23 +21,45 @@ export default function App() {
       {!isAuth && (
         <AuthStack.Navigator>
           <AuthStack.Screen
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
             name='registration'
-            component={RegistrationScreen}
-          />
+          >
+            {() => <RegistrationScreen setIsAuth={setIsAuth} />}
+          </AuthStack.Screen>
           <AuthStack.Screen
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
             name='login'
-            component={LoginScreen}
-          />
+          >
+            {() => <LoginScreen setIsAuth={setIsAuth} />}
+          </AuthStack.Screen>
         </AuthStack.Navigator>
       )}
 
       {isAuth && (
-        <MainTab.Navigator>
-          <MainTab.Screen name='posts' component={PostsScreen}/>
-          <MainTab.Screen name='create' component={CreateScreen}/>
-          <MainTab.Screen name='profile' component={ProfileScreen}/>
+        <MainTab.Navigator
+          initialRouteName='posts'
+          // screenOptions={mainTabs.screenOptions}
+          screenOptions={mainTab.screenOptions}
+        >
+          {/*<MainTab.Screen name='home' component={HomeScreen}/>*/}
+
+          <MainTab.Screen
+            name='posts'
+            component={PostsScreen}
+            options={mainTab.options.getPosts(setIsAuth)}
+          />
+
+          <MainTab.Screen
+            name='create'
+            component={CreatePostsScreen}
+            options={({navigation}) => (mainTab.options.getPostCreation(navigation))}
+          />
+          <MainTab.Screen
+            name='profile'
+            component={ProfileScreen}
+            options={mainTab.options.profile}
+          />
+          {/*<MainTab.Screen name='map' component={MapScreen}/>*/}
         </MainTab.Navigator>
       )}
 

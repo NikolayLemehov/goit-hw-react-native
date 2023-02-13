@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-export default function CreateScreen() {
+export default function CommentsScreen() {
   return (
     <View
       style={{
@@ -9,7 +9,7 @@ export default function CreateScreen() {
         alignItems: 'center',
       }}
     >
-      <Text>CreateScreen</Text>
+      <Text>CommentsScreen</Text>
     </View>
   );
 }

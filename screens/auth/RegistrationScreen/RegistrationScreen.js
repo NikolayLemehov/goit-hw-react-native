@@ -13,11 +13,13 @@ import { useFont } from '../../../hooks/useFont';
 import { authStyles as s } from '../auth.styles';
 import Avatar from '../../../components/Avatar/Avatar';
 import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
+import { useNavigation } from '@react-navigation/native';
 
 const initValues = { email: '', password: '', nickname: '' };
 const initFocus = { email: false, password: false, nickname: false };
 
-export default function RegistrationScreen({navigation}) {
+export default function RegistrationScreen({setIsAuth}) {
+  const navigation = useNavigation();
   const [isShowKeyboard, setIsShowKeyboard] = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
@@ -99,8 +101,12 @@ export default function RegistrationScreen({navigation}) {
                     />
                   </View>
                   <View>
-                    <TouchableOpacity style={s.btnInput}>
-                      <Text style={s.btnInputText} onPress={() => setIsShowPassword(p => !p)}>Показати</Text>
+                    <TouchableOpacity
+                      style={s.btnInput}
+                      activeOpacity={0.5}
+                      onPress={() => setIsShowPassword(p => !p)}
+                    >
+                      <Text style={s.btnInputText}>Показати</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -109,6 +115,7 @@ export default function RegistrationScreen({navigation}) {
                     <View style={{ marginBottom: 16 }}>
                       <Btn onPress={() => {
                         console.log(values);
+                        setIsAuth(true);
                       }} text='Зареєструватись' />
                     </View>
 
