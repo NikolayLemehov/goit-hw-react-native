@@ -3,10 +3,10 @@ import { fontFamily } from '../../variables/fontFamily';
 import PostCard from '../../components/PostCard/PostCard';
 
 const postList = [
-  {messageCount: 0},
-  {messageCount: 9},
-  {messageCount: 1},
-]
+  { id: '0', messageCount: 0 },
+  { id: '1', messageCount: 9 },
+  { id: '2', messageCount: 1 },
+];
 
 export default function PostsScreen() {
   return (
@@ -21,7 +21,7 @@ export default function PostsScreen() {
         // alignItems: 'center',
       }}
     >
-      <View style={[st.userCard, {marginBottom: 32}]}>
+      <View style={[st.userCard, { marginBottom: 32 }]}>
         <Image style={st.image} source={require('../../assets/images/avatar.png')} />
         <View style={st.userCardContent}>
           <Text style={st.userCardName}>Natali Romanova</Text>
@@ -30,8 +30,8 @@ export default function PostsScreen() {
       </View>
 
       <View>
-        {postList.map((it, i) => (
-          <View key={i} style={{marginBottom: 10}}>
+        {postList.map((it) => (
+          <View key={it.id} style={{marginBottom: 10}}>
             <PostCard
               messageCount={it.messageCount}
             />
@@ -54,9 +54,7 @@ const st = StyleSheet.create({
     borderRadius: 16,
     marginRight: 8,
   },
-  userCardContent: {
-
-  },
+  userCardContent: {},
   userCardName: {
     fontFamily: fontFamily.roboto700,
     fontSize: 13,
