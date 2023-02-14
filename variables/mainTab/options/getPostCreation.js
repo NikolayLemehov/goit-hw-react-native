@@ -1,11 +1,11 @@
 import { TouchableOpacity } from 'react-native';
 import ArrowLeftIcon from '../../../components/svg/ArrowLeftIcon';
-import NewPostIcon from '../../../components/svg/NewPost';
+import NewPostIcon from '../../../components/svg/NewPostIcon';
 
 export const getPostCreation = (navigation) => ({
   title: 'Створити публікацію',
   headerLeft: (props) => {
-    console.log(props)
+    // console.log(props)
     return (
       <TouchableOpacity
         activeOpacity={0.7}
