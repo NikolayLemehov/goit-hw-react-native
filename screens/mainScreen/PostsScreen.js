@@ -1,12 +1,9 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { fontFamily } from '../../variables/fontFamily';
 import PostCard from '../../components/PostCard/PostCard';
+import data from '../../data';
 
-const postList = [
-  { id: '0', messageCount: 0 },
-  { id: '1', messageCount: 9 },
-  { id: '2', messageCount: 1 },
-];
+const { postList } = data;
 
 export default function PostsScreen() {
   return (
@@ -31,13 +28,14 @@ export default function PostsScreen() {
 
       <View>
         {postList.map((it) => (
-          <View key={it.id} style={{marginBottom: 10}}>
+          <View key={it.id} style={{ marginBottom: 10 }}>
             <PostCard
               messageCount={it.messageCount}
+              imgUrl={it.imgUrl}
             />
           </View>
         ))}
-        <View style={{height: 50}}/>
+        <View style={{ height: 50 }} />
       </View>
     </ScrollView>
   );

@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScreen from './screens/mainScreen/ProfileScreen';
-import CreatePostsScreen from './screens/mainScreen/CreatePostsScreen';
+import CreatePostsScreen from './screens/mainScreen/CreatePostsScreen/CreatePostsScreen';
 import PostsScreen from './screens/mainScreen/PostsScreen';
 import RegistrationScreen from './screens/auth/RegistrationScreen/RegistrationScreen';
 import LoginScreen from './screens/auth/LoginScreen/LoginScreen';
@@ -51,9 +51,14 @@ export default function App() {
 
           <MainTab.Screen
             name='create'
-            component={CreatePostsScreen}
+            // component={CreatePostsScreen}
             options={({navigation}) => (mainTab.options.getPostCreation(navigation))}
-          />
+          >
+            {() => <CreatePostsScreen
+              imgUrl={require('./assets/images/posts/img01.jpg')}
+              // imgUrl={false}
+            />}
+          </MainTab.Screen>
           <MainTab.Screen
             name='profile'
             component={ProfileScreen}

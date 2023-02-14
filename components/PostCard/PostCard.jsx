@@ -2,13 +2,18 @@ import { Image, Text, View } from 'react-native';
 import { s } from './PostCard.style';
 import MapPinIcon from '../svg/MapPinIcon';
 import MessageCircleIcon from '../svg/MessageCircleIcon';
+// import posts from '../../assets/images/posts'
 
-export default function PostCard({messageCount}) {
+// console.log(posts)
+
+export default function PostCard({messageCount, imgUrl = require('../../assets/images/posts/img03.jpg')}) {
+  // const source = `../../assets/images/posts/${imgUrl}`
   return (
     <View style={s.container}>
       <Image
         style={s.image}
-        source={require('../../assets/images/posts/img01.jpg')}
+        source={imgUrl}
+        // source={{uri: source}}
       />
       <Text style={s.title}>Ліс</Text>
       <View style={s.dataWrapper}>

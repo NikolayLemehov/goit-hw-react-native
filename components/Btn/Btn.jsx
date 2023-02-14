@@ -1,14 +1,22 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { colors } from '../../variables/colors';
 
-export default function Btn({ onPress, text }) {
+export default function Btn({ onPress, text, disabled }) {
+  const onPressBtn = () => {
+    if (disabled) return;
+    onPress()
+  }
+
   return (
-    <>
-      <View>
-        <TouchableOpacity style={s.btn} onPress={onPress}>
-          <Text style={s.text}>{text}</Text>
-        </TouchableOpacity>
-      </View>
-    </>
+    <TouchableOpacity
+      activeOpacity={disabled ? 1 : 0.7}
+      style={[s.btn, disabled && s.btnDisabled]}
+      onPress={onPressBtn}
+    >
+      <Text
+        style={[s.text, disabled && s.textDisabled]}
+      >{text}</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -17,10 +25,13 @@ const s = StyleSheet.create({
     // flex: 1,
     paddingVertical: 16,
     paddingHorizontal: 32,
-    backgroundColor: '#FF6C00',
+    backgroundColor: colors.active,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,
+  },
+  btnDisabled: {
+    backgroundColor: '#F6F6F6',
   },
   text: {
     // flex: 1,
@@ -31,17 +42,7 @@ const s = StyleSheet.create({
     color: '#ffffff',
     // justifyContent: 'center',
   },
+  textDisabled: {
+    color: '#BDBDBD',
+  }
 });
-
-// font-family: 'Roboto';
-// font-style: normal;
-// font-weight: 400;
-// font-size: 16px;
-// line-height: 19px;
-// /* identical to box height */
-//
-// text-align: center;
-//
-// /* White */
-// border-radius: 100px;
-// color: #FFFFFF;
