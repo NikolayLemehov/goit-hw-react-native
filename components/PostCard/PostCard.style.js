@@ -3,6 +3,7 @@ import { fontFamily } from '../../variables/fontFamily';
 
 export const s = StyleSheet.create({
   container: {
+    backgroundColor: '#ffffff',
   },
   image: {
     width: '100%',
@@ -20,6 +21,11 @@ export const s = StyleSheet.create({
   dataWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  sentenceWrapper: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
   },
   sentence: {
     flexDirection: 'row',

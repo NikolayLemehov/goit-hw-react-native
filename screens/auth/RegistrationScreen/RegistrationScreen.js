@@ -13,6 +13,7 @@ import Avatar from '../../../components/Avatar/Avatar';
 import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
 import { useNavigation } from '@react-navigation/native';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
+import { commonStyle } from '../../../styles/commonStyle';
 
 const initValues = { email: '', password: '', nickname: '' };
 const initFocus = { email: false, password: false, nickname: false };
@@ -52,7 +53,7 @@ export default function RegistrationScreen({ setIsAuth }) {
             </View>
           </View>
 
-          <Text style={s.title}>Реєстрація</Text>
+          <Text style={[commonStyle.title, {marginBottom: 32}]}>Реєстрація</Text>
           <View style={[s.inputWrapper, hasFocus.nickname && s.inputWrapperFocus,
             { marginBottom: 16 }]}>
             <TextInput

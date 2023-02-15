@@ -12,6 +12,7 @@ import { authStyles as s } from '../auth.styles';
 import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
 import { useNavigation } from '@react-navigation/native';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
+import { commonStyle } from '../../../styles/commonStyle';
 
 const initValues = { email: '', password: '' };
 const initFocus = { email: false, password: false };
@@ -39,7 +40,7 @@ export default function LoginScreen({ setIsAuth }) {
     <KeyboardContainer>
       <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
         <View style={[styles.inner, { paddingBottom: isShowKeyboard ? 32 : 144 }]}>
-          <Text style={s.title}>Увійти</Text>
+          <Text style={[commonStyle.title, {marginBottom: 32}]}>Увійти</Text>
           <View style={[s.inputWrapper, hasFocus.email && s.inputWrapperFocus, { marginBottom: 16 }]}>
             <TextInput
               style={s.input}

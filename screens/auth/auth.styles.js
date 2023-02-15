@@ -18,14 +18,6 @@ export const authStyles = StyleSheet.create({
     lineHeight: 19,
     color: '#212121',
   },
-  title: {
-    paddingBottom: 32,
-    fontFamily: 'Roboto-Medium',
-    fontSize: 30,
-    lineHeight: 35,
-    textAlign: 'center',
-    color: '#212121',
-  },
   text: {
     fontFamily: 'Roboto-Regular',
     fontSize: 16,
