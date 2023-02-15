@@ -38,6 +38,7 @@ export const s = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: '#212121',
+    textDecorationLine: 'underline',
   },
   sentenceTextInactive: {
     color: '#BDBDBD',

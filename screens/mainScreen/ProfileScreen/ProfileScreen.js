@@ -70,6 +70,12 @@ export default function ProfileScreen() {
                 />
               </View>
             )}
+            ListEmptyComponent={<View style={{
+              height: 100,
+              backgroundColor: '#ffffff',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}><Text>У вас ще не має постів</Text></View>}
             ListFooterComponent={<Empty height={43} />}
           />
           <View style={{
