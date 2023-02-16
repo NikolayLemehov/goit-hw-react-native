@@ -60,9 +60,11 @@ export default function App() {
           </MainTab.Screen>
           <MainTab.Screen
             name='profile'
-            component={ProfileScreen}
+            // component={ProfileScreen}
             options={mainTab.options.profile}
-          />
+          >
+            {() => <ProfileScreen setIsAuth={setIsAuth}/>}
+          </MainTab.Screen>
           {/*<MainTab.Screen name='map' component={MapScreen}/>*/}
         </MainTab.Navigator>
       )}

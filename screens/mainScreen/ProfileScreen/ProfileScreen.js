@@ -12,8 +12,8 @@ const Empty = ({ height, ...another }) => <View
   {...another}
 />;
 
-export default function ProfileScreen() {
-  const [isEmptyAvatar, setIsEmptyAvatar] = useState(false);
+export default function ProfileScreen({setIsAuth}) {
+  const [isEmptyAvatar, setIsEmptyAvatar] = useState(true);
 
   return (
     <View
@@ -49,8 +49,7 @@ export default function ProfileScreen() {
 
                 <TouchableOpacity
                   activeOpacity={0.7}
-                  onPress={() => {
-                  }}
+                  onPress={() => setIsAuth(false)}
                   style={s.exitBtn}>
                   <LogOutIcon />
                 </TouchableOpacity>
@@ -78,7 +77,9 @@ export default function ProfileScreen() {
             }}><Text>У вас ще не має постів</Text></View>}
             ListFooterComponent={<Empty height={43} />}
           />
+
           <View style={{
+            marginTop: -1,
             flexGrow: 10 ** 10,
             // marginTop: 25,
             width: '100%',
