@@ -10,15 +10,13 @@ import { useState } from 'react';
 import Btn from '../../../components/Btn/Btn';
 import { authStyles as s } from '../auth.styles';
 import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
-import { useNavigation } from '@react-navigation/native';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
 import { commonStyle } from '../../../styles/commonStyle';
 
 const initValues = { email: '', password: '' };
 const initFocus = { email: false, password: false };
 
-export default function LoginScreen({ setIsAuth }) {
-  const navigation = useNavigation();
+export default function LoginScreen({ setIsAuth, navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);

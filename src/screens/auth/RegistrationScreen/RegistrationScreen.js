@@ -11,15 +11,13 @@ import Btn from '../../../components/Btn/Btn';
 import { authStyles as s } from '../auth.styles';
 import Avatar from '../../../components/Avatar/Avatar';
 import { useKeyboardShow } from '../../../hooks/useKeyboardShow';
-import { useNavigation } from '@react-navigation/native';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
 import { commonStyle } from '../../../styles/commonStyle';
 
 const initValues = { email: '', password: '', nickname: '' };
 const initFocus = { email: false, password: false, nickname: false };
 
-export default function RegistrationScreen({ setIsAuth }) {
-  const navigation = useNavigation();
+export default function RegistrationScreen({ setIsAuth, navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);

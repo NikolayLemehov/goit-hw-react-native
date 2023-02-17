@@ -1,78 +1,73 @@
-import { useState } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ProfileScreen from './screens/mainScreen/ProfileScreen/ProfileScreen';
-import CreatePostsScreen from './screens/mainScreen/CreatePostsScreen/CreatePostsScreen';
-import PostsScreen from './screens/mainScreen/PostsScreen/PostsScreen';
+import {useState} from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
 import RegistrationScreen from './screens/auth/RegistrationScreen/RegistrationScreen';
 import LoginScreen from './screens/auth/LoginScreen/LoginScreen';
-import {mainTab} from './variables/mainTab';
-// import MapScreen from "./screens/otherScreens/MapScreen/MapScreen";
-// import CommentsScreen from "./screens/otherScreens/CommentsScreen/CommentsScreen";
+import MapScreen from './screens/otherScreens/MapScreen/MapScreen';
+import CommentsScreen from './screens/otherScreens/CommentsScreen/CommentsScreen';
+import MainTabNav from './Routing/MainTabNav';
+import {fontFamily} from './variables/fontFamily';
+import LeftNavArrow from './components/LeftNavArrow/LeftNavArrow';
 
 export default function SrcApp() {
   const [isAuth, setIsAuth] = useState(false);
 
   const AuthStack = createStackNavigator();
-  const MainTab = createBottomTabNavigator();
+  const OtherStack = createStackNavigator();
 
   return (
     <NavigationContainer>
 
       {!isAuth && (
-        <AuthStack.Navigator>
-          <AuthStack.Screen
-            options={{ headerShown: false }}
-            name='registration'
-          >
-            {() => <RegistrationScreen setIsAuth={setIsAuth} />}
+        <AuthStack.Navigator screenOptions={{headerShown: false}}>
+          <AuthStack.Screen name='registration'>
+            {(props) => <RegistrationScreen {...props} setIsAuth={setIsAuth}/>}
           </AuthStack.Screen>
-          <AuthStack.Screen
-            options={{ headerShown: false }}
-            name='login'
-          >
-            {() => <LoginScreen setIsAuth={setIsAuth} />}
+
+          <AuthStack.Screen name='login'>
+            {(props) => <LoginScreen {...props} setIsAuth={setIsAuth}/>}
           </AuthStack.Screen>
         </AuthStack.Navigator>
       )}
 
       {isAuth && (
-        <MainTab.Navigator
-          initialRouteName='posts'
-          // screenOptions={mainTabs.screenOptions}
-          screenOptions={mainTab.screenOptions}
-        >
-
-          <MainTab.Screen
-            name='posts'
-            component={PostsScreen}
-            options={mainTab.options.getPosts(setIsAuth)}
+        <OtherStack.Navigator screenOptions={mainOptions}>
+          <OtherStack.Screen
+            name='home'
+            options={{headerShown: false}}
+          >
+            {props => <MainTabNav {...props} setIsAuth={setIsAuth}/>}
+          </OtherStack.Screen>
+          <OtherStack.Screen
+            name='map'
+            component={MapScreen}
+            options={{title: 'Мапа'}}
           />
-
-          <MainTab.Screen
-            name='create'
-            options={({navigation}) => (mainTab.options.getPostCreation(navigation))}
-          >
-            {() => <CreatePostsScreen
-              imgUrl={require('./assets/images/posts/img01.jpg')}
-              // imgUrl={false}
-            />}
-          </MainTab.Screen>
-          <MainTab.Screen
-            name='profile'
-            // component={ProfileScreen}
-            options={mainTab.options.profile}
-          >
-            {() => <ProfileScreen setIsAuth={setIsAuth}/>}
-          </MainTab.Screen>
-
-          {/*<MainTab.Screen name='home' component={HomeScreen}/>*/}
-          {/*<MainTab.Screen name='map' component={MapScreen}/>*/}
-          {/*<MainTab.Screen name='comments' component={CommentsScreen}/>*/}
-        </MainTab.Navigator>
+          <OtherStack.Screen
+            name='comments'
+            component={CommentsScreen}
+            options={{title: 'Коментарі'}}
+          />
+        </OtherStack.Navigator>
       )}
 
     </NavigationContainer>
   );
 }
+
+const mainOptions = {
+  headerTitleAlign: 'center',
+  headerTintColor: '#212121',
+  headerTitleStyle: {
+    fontFamily: fontFamily.roboto500,
+    fontSize: 17,
+    lineHeight: 22,
+  },
+  headerStyle: {
+    height: 88,
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: 1,
+    borderBottomColor: '#b3b3b3',
+  },
+  headerLeft: (props) => <LeftNavArrow {...props}/>
+};

@@ -24,6 +24,5 @@ export const screenOptions = {
     backgroundColor: '#FFFFFF',
     borderTopWidth: 1,
     borderTopColor: '#b3b3b3',
-
   },
 };
