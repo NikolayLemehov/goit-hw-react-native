@@ -117,7 +117,7 @@ export default function RegistrationScreen({ setIsAuth }) {
       </ImageBackground>
     </KeyboardContainer>
   )
-    ;
+  ;
 }
 
 const st = StyleSheet.create({

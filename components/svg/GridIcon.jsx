@@ -1,4 +1,4 @@
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path } from 'react-native-svg';
 
 const GridIcon = (props) => {
   return (
@@ -19,6 +19,6 @@ const GridIcon = (props) => {
       />
     </Svg>
   );
-}
+};
 
-export default GridIcon
+export default GridIcon;

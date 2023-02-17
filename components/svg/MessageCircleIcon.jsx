@@ -1,4 +1,4 @@
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path } from 'react-native-svg';
 import { colors } from '../../variables/colors';
 
 const MessageCircleIcon = (props) => (
@@ -17,6 +17,6 @@ const MessageCircleIcon = (props) => (
       strokeLinejoin="round"
     />
   </Svg>
-)
+);
 
-export default MessageCircleIcon
+export default MessageCircleIcon;

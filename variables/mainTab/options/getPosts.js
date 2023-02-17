@@ -24,4 +24,4 @@ export const getPosts = (setIsAuth) => ({
   tabBarIcon: ({ color, size }) => (
     <GridIcon color={color} size={size} />
   ),
-})
+});

@@ -3,4 +3,4 @@ export const fontFamily = {
   roboto500: 'Roboto-Medium',
   roboto700: 'Roboto-Bold',
   inter500: 'Inter-Medium',
-}
+};

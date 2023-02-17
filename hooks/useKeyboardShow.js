@@ -5,10 +5,10 @@ export const useKeyboardShow = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   useEffect(() => {
-    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setIsShowKeyboard(true);
     });
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
       setIsShowKeyboard(false);
     });
 
@@ -19,4 +19,4 @@ export const useKeyboardShow = () => {
   }, []);
 
   return [isShowKeyboard, setIsShowKeyboard];
-}
+};

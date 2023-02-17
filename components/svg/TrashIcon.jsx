@@ -1,4 +1,4 @@
-import Svg, { G, Rect, Path, Defs, ClipPath } from "react-native-svg"
+import Svg, { G, Rect, Path, Defs, ClipPath } from 'react-native-svg';
 
 const TrashIcon = (props) => (
   <Svg
@@ -33,6 +33,6 @@ const TrashIcon = (props) => (
       </ClipPath>
     </Defs>
   </Svg>
-)
+);
 
-export default TrashIcon
+export default TrashIcon;

@@ -1,4 +1,4 @@
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path } from 'react-native-svg';
 
 const UserIcon = (props) => (
   <Svg
@@ -23,6 +23,6 @@ const UserIcon = (props) => (
       strokeLinejoin="round"
     />
   </Svg>
-)
+);
 
-export default UserIcon
+export default UserIcon;

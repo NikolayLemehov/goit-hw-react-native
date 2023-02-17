@@ -4,8 +4,8 @@ import { colors } from '../../variables/colors';
 export default function Btn({ onPress, text, disabled }) {
   const onPressBtn = () => {
     if (disabled) return;
-    onPress()
-  }
+    onPress();
+  };
 
   return (
     <TouchableOpacity

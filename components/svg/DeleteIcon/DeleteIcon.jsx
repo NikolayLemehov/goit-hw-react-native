@@ -1,5 +1,5 @@
-import * as React from "react"
-import Svg, { G, Circle, Path, Defs, ClipPath } from "react-native-svg"
+import * as React from 'react';
+import Svg, { G, Circle, Path, Defs, ClipPath } from 'react-native-svg';
 
 const DeleteIcon = (props) => (
   <Svg
@@ -31,6 +31,6 @@ const DeleteIcon = (props) => (
       </ClipPath>
     </Defs>
   </Svg>
-)
+);
 
-export default DeleteIcon
+export default DeleteIcon;

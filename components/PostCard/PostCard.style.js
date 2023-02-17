@@ -43,4 +43,4 @@ export const s = StyleSheet.create({
   sentenceTextInactive: {
     color: '#BDBDBD',
   },
-})
+});

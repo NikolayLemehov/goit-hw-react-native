@@ -21,10 +21,10 @@ export const getPostCreation = (navigation) => ({
       </TouchableOpacity>
     );
   },
-  tabBarStyle: { display: "none" },
+  tabBarStyle: { display: 'none' },
   tabBarShowLabel: false,
   tabBarLabel: false,
   tabBarIcon: ({ color, size }) => (
     <NewPostIcon color={color} size={size} />
   ),
-})
+});

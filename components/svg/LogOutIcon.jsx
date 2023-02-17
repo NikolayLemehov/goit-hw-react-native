@@ -1,4 +1,4 @@
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path } from 'react-native-svg';
 
 const LogOutIcon = (props) => {
   // console.log(props)
@@ -18,6 +18,6 @@ const LogOutIcon = (props) => {
       />
     </Svg>
   );
-}
+};
 
-export default LogOutIcon
+export default LogOutIcon;

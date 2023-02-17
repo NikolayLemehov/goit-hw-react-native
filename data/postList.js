@@ -25,6 +25,6 @@ const postList = [
   },
 ];
 
-postList.splice(3)
+postList.splice(3);
 
-export {postList}
+export {postList};

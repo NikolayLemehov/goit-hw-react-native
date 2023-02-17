@@ -1,4 +1,4 @@
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path } from 'react-native-svg';
 
 const ArrowLeftIcon = (props) => (
   <Svg
@@ -16,6 +16,6 @@ const ArrowLeftIcon = (props) => (
       strokeLinejoin="round"
     />
   </Svg>
-)
+);
 
-export default ArrowLeftIcon
+export default ArrowLeftIcon;

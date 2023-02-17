@@ -1,4 +1,4 @@
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path } from 'react-native-svg';
 
 const MapPinIcon = (props) => (
   <Svg
@@ -23,6 +23,6 @@ const MapPinIcon = (props) => (
       strokeLinejoin="round"
     />
   </Svg>
-)
+);
 
-export default MapPinIcon
+export default MapPinIcon;

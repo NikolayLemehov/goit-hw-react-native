@@ -1,5 +1,5 @@
-import * as React from "react"
-import Svg, { G, Path, Defs, ClipPath } from "react-native-svg"
+import * as React from 'react';
+import Svg, { G, Path, Defs, ClipPath } from 'react-native-svg';
 
 const CameraIcon = (props) => (
   <Svg
@@ -19,6 +19,6 @@ const CameraIcon = (props) => (
       </ClipPath>
     </Defs>
   </Svg>
-)
+);
 
-export default CameraIcon
+export default CameraIcon;

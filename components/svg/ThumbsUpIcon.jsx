@@ -1,4 +1,4 @@
-import Svg, { Path } from "react-native-svg"
+import Svg, { Path } from 'react-native-svg';
 
 const ThumbsUpIcon = (props) => (
   <Svg
@@ -13,6 +13,6 @@ const ThumbsUpIcon = (props) => (
       fill="#FF6C00"
     />
   </Svg>
-)
+);
 
-export default ThumbsUpIcon
+export default ThumbsUpIcon;
