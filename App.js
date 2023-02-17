@@ -8,6 +8,8 @@ import PostsScreen from './screens/mainScreen/PostsScreen/PostsScreen';
 import RegistrationScreen from './screens/auth/RegistrationScreen/RegistrationScreen';
 import LoginScreen from './screens/auth/LoginScreen/LoginScreen';
 import {mainTab} from './variables/mainTab';
+// import MapScreen from "./screens/otherScreens/MapScreen/MapScreen";
+// import CommentsScreen from "./screens/otherScreens/CommentsScreen/CommentsScreen";
 
 export default function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -41,7 +43,6 @@ export default function App() {
           // screenOptions={mainTabs.screenOptions}
           screenOptions={mainTab.screenOptions}
         >
-          {/*<MainTab.Screen name='home' component={HomeScreen}/>*/}
 
           <MainTab.Screen
             name='posts'
@@ -65,7 +66,10 @@ export default function App() {
           >
             {() => <ProfileScreen setIsAuth={setIsAuth}/>}
           </MainTab.Screen>
+
+          {/*<MainTab.Screen name='home' component={HomeScreen}/>*/}
           {/*<MainTab.Screen name='map' component={MapScreen}/>*/}
+          {/*<MainTab.Screen name='comments' component={CommentsScreen}/>*/}
         </MainTab.Navigator>
       )}
 
