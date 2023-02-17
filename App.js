@@ -7,7 +7,7 @@ import CreatePostsScreen from './screens/mainScreen/CreatePostsScreen/CreatePost
 import PostsScreen from './screens/mainScreen/PostsScreen/PostsScreen';
 import RegistrationScreen from './screens/auth/RegistrationScreen/RegistrationScreen';
 import LoginScreen from './screens/auth/LoginScreen/LoginScreen';
-import mainTab from './variables/mainTab';
+import {mainTab} from './variables/mainTab';
 
 export default function App() {
   const [isAuth, setIsAuth] = useState(false);

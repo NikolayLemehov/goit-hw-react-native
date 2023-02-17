@@ -1,7 +1,7 @@
 import { screenOptions } from './screenOptions';
-import options from './options';
+import {options} from './options';
 
-export default {
+export const mainTab = {
   screenOptions,
   options,
 };
