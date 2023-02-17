@@ -6,4 +6,4 @@ export const profile = {
   tabBarIcon: ({ color, size }) => (
     <UserIcon color={color} size={size} />
   ),
-}
+};
