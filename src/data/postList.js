@@ -6,6 +6,29 @@ const postList = [
     likeCount: 10,
     imgUrl: require('../assets/images/posts/img01.jpg'),
     location: 'Ukraine',
+    comments: [
+      {
+        id: '0',
+        text: 'Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!',
+        date: '09 июня, 2020 | 08:40',
+        isOwner: false,
+        ownerAvatar: require('../assets/images/avatar2.png'),
+      },
+      {
+        id: '1',
+        text: 'A fast 50mm like f1.8 would help with the bokeh. I’ve been using primes as they tend to get a bit sharper images.',
+        date: '09 июня, 2020 | 09:14',
+        isOwner: true,
+        ownerAvatar: require('../assets/images/avatar.png'),
+      },
+      {
+        id: '2',
+        text: 'Thank you! That was very helpful!',
+        date: '09 июня, 2020 | 09:20',
+        isOwner: false,
+        ownerAvatar: require('../assets/images/avatar2.png'),
+      },
+    ]
   },
   {
     id: '1',
@@ -14,6 +37,29 @@ const postList = [
     likeCount: 255,
     imgUrl: require('../assets/images/posts/img02.jpg'),
     location: 'Ukraine',
+    comments: [
+      {
+        id: '0',
+        text: 'Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!',
+        date: '09 июня, 2020 | 08:40',
+        isOwner: false,
+        ownerAvatar: require('../assets/images/avatar2.png'),
+      },
+      {
+        id: '1',
+        text: 'A fast 50mm like f1.8 would help with the bokeh. I’ve been using primes as they tend to get a bit sharper images.',
+        date: '09 июня, 2020 | 09:14',
+        isOwner: true,
+        ownerAvatar: require('../assets/images/avatar.png'),
+      },
+      {
+        id: '2',
+        text: 'Thank you! That was very helpful!',
+        date: '09 июня, 2020 | 09:20',
+        isOwner: false,
+        ownerAvatar: require('../assets/images/avatar2.png'),
+      },
+    ]
   },
   {
     id: '2',
@@ -22,6 +68,29 @@ const postList = [
     likeCount: 0,
     imgUrl: require('../assets/images/posts/img03.jpg'),
     location: 'Ukraine',
+    comments: [
+      {
+        id: '0',
+        text: 'Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!',
+        date: '09 июня, 2020 | 08:40',
+        isOwner: false,
+        ownerAvatar: require('../assets/images/avatar2.png'),
+      },
+      {
+        id: '1',
+        text: 'A fast 50mm like f1.8 would help with the bokeh. I’ve been using primes as they tend to get a bit sharper images.',
+        date: '09 июня, 2020 | 09:14',
+        isOwner: true,
+        ownerAvatar: require('../assets/images/avatar.png'),
+      },
+      {
+        id: '2',
+        text: 'Thank you! That was very helpful!',
+        date: '09 июня, 2020 | 09:20',
+        isOwner: false,
+        ownerAvatar: require('../assets/images/avatar2.png'),
+      },
+    ]
   },
 ];
 

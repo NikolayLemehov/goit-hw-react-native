@@ -1,5 +1,4 @@
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
 import { style as s } from './CreatePostsScreen.style';
 import CameraBtn from '../../../components/CameraBtn/CameraBtn';
 import MapPinIcon from '../../../components/svg/MapPinIcon';
@@ -16,7 +15,7 @@ export default function CreatePostsScreen({ imgUrl }) {
   };
 
   return (
-    <KeyboardContainer style={s.container}>
+    <View style={s.container}>
       <View style={{ marginBottom: 32 }}>
         <View style={[s.imgWrapper, { marginBottom: 8 }]}>
           <Image style={s.img} source={imgUrl} />
@@ -60,6 +59,6 @@ export default function CreatePostsScreen({ imgUrl }) {
       >
         <TrashIcon />
       </TouchableOpacity>
-    </KeyboardContainer>
+    </View>
   );
 }

@@ -8,6 +8,7 @@ import CommentsScreen from './screens/otherScreens/CommentsScreen/CommentsScreen
 import MainTabNav from './Routing/MainTabNav';
 import {fontFamily} from './variables/fontFamily';
 import LeftNavArrow from './components/LeftNavArrow/LeftNavArrow';
+import KeyboardContainer from './components/KeyboardContainer/KeyboardContainer';
 
 export default function SrcApp() {
   const [isAuth, setIsAuth] = useState(false);
@@ -16,42 +17,44 @@ export default function SrcApp() {
   const OtherStack = createStackNavigator();
 
   return (
-    <NavigationContainer>
+    <KeyboardContainer>
+      <NavigationContainer>
 
-      {!isAuth && (
-        <AuthStack.Navigator screenOptions={{headerShown: false}}>
-          <AuthStack.Screen name='registration'>
-            {(props) => <RegistrationScreen {...props} setIsAuth={setIsAuth}/>}
-          </AuthStack.Screen>
+        {!isAuth && (
+          <AuthStack.Navigator screenOptions={{headerShown: false}}>
+            <AuthStack.Screen name='registration'>
+              {(props) => <RegistrationScreen {...props} setIsAuth={setIsAuth}/>}
+            </AuthStack.Screen>
 
-          <AuthStack.Screen name='login'>
-            {(props) => <LoginScreen {...props} setIsAuth={setIsAuth}/>}
-          </AuthStack.Screen>
-        </AuthStack.Navigator>
-      )}
+            <AuthStack.Screen name='login'>
+              {(props) => <LoginScreen {...props} setIsAuth={setIsAuth}/>}
+            </AuthStack.Screen>
+          </AuthStack.Navigator>
+        )}
 
-      {isAuth && (
-        <OtherStack.Navigator screenOptions={mainOptions}>
-          <OtherStack.Screen
-            name='home'
-            options={{headerShown: false}}
-          >
-            {props => <MainTabNav {...props} setIsAuth={setIsAuth}/>}
-          </OtherStack.Screen>
-          <OtherStack.Screen
-            name='map'
-            component={MapScreen}
-            options={{title: 'Мапа'}}
-          />
-          <OtherStack.Screen
-            name='comments'
-            component={CommentsScreen}
-            options={{title: 'Коментарі'}}
-          />
-        </OtherStack.Navigator>
-      )}
+        {isAuth && (
+          <OtherStack.Navigator screenOptions={mainOptions}>
+            <OtherStack.Screen
+              name='home'
+              options={{headerShown: false}}
+            >
+              {props => <MainTabNav {...props} setIsAuth={setIsAuth}/>}
+            </OtherStack.Screen>
+            <OtherStack.Screen
+              name='map'
+              component={MapScreen}
+              options={{title: 'Мапа'}}
+            />
+            <OtherStack.Screen
+              name='comments'
+              component={CommentsScreen}
+              options={{title: 'Коментарі'}}
+            />
+          </OtherStack.Navigator>
+        )}
 
-    </NavigationContainer>
+      </NavigationContainer>
+    </KeyboardContainer>
   );
 }
 

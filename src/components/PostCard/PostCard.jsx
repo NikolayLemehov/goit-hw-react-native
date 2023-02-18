@@ -20,7 +20,6 @@ export default function PostCard(
       <Image
         style={s.image}
         source={imgUrl}
-        // source={{uri: source}}
       />
       <Text style={s.title}>{title}</Text>
       <View style={s.dataWrapper}>

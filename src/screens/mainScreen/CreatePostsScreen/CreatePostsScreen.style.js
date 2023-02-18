@@ -3,6 +3,7 @@ import { fontFamily } from '../../../variables/fontFamily';
 
 export const style = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: '#ffffff',
     paddingTop: 32,
     paddingBottom: 42,
