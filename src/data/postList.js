@@ -6,6 +6,7 @@ const postList = [
     likeCount: 10,
     imgUrl: require('../assets/images/posts/img01.jpg'),
     location: 'Ukraine',
+    locationData: { latitude: 49.489272606874714, longitude: 31.988322933820086 },
     comments: [
       {
         id: '0',
@@ -37,6 +38,7 @@ const postList = [
     likeCount: 255,
     imgUrl: require('../assets/images/posts/img02.jpg'),
     location: 'Ukraine',
+    locationData: { latitude: 45.255644, longitude: 30.204368 },
     comments: [
       {
         id: '0',
@@ -68,6 +70,7 @@ const postList = [
     likeCount: 0,
     imgUrl: require('../assets/images/posts/img03.jpg'),
     location: 'Ukraine',
+    locationData: { latitude: 45.438099, longitude: 12.324347 },
     comments: [
       {
         id: '0',

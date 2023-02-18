@@ -30,6 +30,7 @@ export default function PostsScreen() {
                 messageCount={it.messageCount}
                 imgUrl={it.imgUrl}
                 location={it.location}
+                locationData={it.locationData}
               />
             </View>
           ))}

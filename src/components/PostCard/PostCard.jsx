@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function PostCard(
   {
-    messageCount, likeCount, title, location,
+    messageCount, likeCount, title, location, locationData,
     imgUrl = require('../../assets/images/posts/img03.jpg'),
   }) {
   // const source = `../../assets/images/posts/${imgUrl}`
@@ -33,7 +33,7 @@ export default function PostCard(
             <Text style={[s.sentenceText, s.sentenceTextInactive]}>{likeCount}</Text>
           </View>
         </View>
-        <TouchableOpacity style={s.sentence} onPress={() => navigation.navigate('map')}>
+        <TouchableOpacity style={s.sentence} onPress={() => navigation.navigate('map', {location, locationData})}>
           <MapPinIcon />
           <Text style={s.sentenceText}>{location}</Text>
         </TouchableOpacity>
