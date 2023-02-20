@@ -10,11 +10,14 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function PostCard(
   {
-    messageCount, likeCount, title, location, locationData, imgUri,
-    imgUrl,
+    likeCount, title, location, locationData, imgUri,
+    imgUrl, comments
   }) {
   // const source = `../../assets/images/posts/${imgUrl}`
   const navigation = useNavigation();
+  const onPressCommentsIcon = () => {
+    navigation.navigate('comments', {imgUri, imgUrl, comments});
+  };
   return (
     <View style={s.container}>
       <Image
@@ -28,9 +31,9 @@ export default function PostCard(
       <Text style={s.title}>{title}</Text>
       <View style={s.dataWrapper}>
         <View style={s.sentenceWrapper}>
-          <TouchableOpacity style={[s.sentence, { marginRight: 24 }]} onPress={() => navigation.navigate('comments')}>
-            <MessageCircleIcon has={messageCount > 0} />
-            <Text style={[s.sentenceText, s.sentenceTextInactive]}>{messageCount}</Text>
+          <TouchableOpacity style={[s.sentence, { marginRight: 24 }]} onPress={onPressCommentsIcon}>
+            <MessageCircleIcon has={comments.length > 0} />
+            <Text style={[s.sentenceText, s.sentenceTextInactive]}>{comments.length}</Text>
           </TouchableOpacity>
           <View style={[s.sentence]}>
             <ThumbsUpIcon />

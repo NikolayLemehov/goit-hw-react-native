@@ -54,6 +54,7 @@ export default function PostsScreen({route}) {
                 imgUri={it.imgUri}
                 location={it.location}
                 locationData={it.locationData}
+                comments={it.comments}
               />
             </View>
           ))}

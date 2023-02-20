@@ -1,19 +1,23 @@
 import {FlatList, Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {style as s} from './CommentsScreen.style';
-import {postList} from '../../../data/postList';
 import RoundUpIcon from '../../../components/svg/RoundUp';
 
-export default function CommentsScreen() {
+export default function CommentsScreen({route}) {
+  const {imgUri, imgUrl, comments} = route.params;
   return (
     <View style={s.container}>
       <FlatList
         style={{paddingHorizontal: 16}}
-        data={postList[1].comments}
+        data={comments}
         ListHeaderComponent={
           <View style={{paddingVertical: 32}}>
             <Image
               style={s.image}
-              source={postList[1].imgUrl}
+              source={(() => {
+                if (imgUrl) return imgUrl;
+                if (imgUri) return {uri: imgUri};
+                return false;
+              })()}
             />
           </View>}
         renderItem={({item}) => (
