@@ -9,6 +9,7 @@ import MainTabNav from './Routing/MainTabNav';
 import {fontFamily} from './variables/fontFamily';
 import LeftNavArrow from './components/LeftNavArrow/LeftNavArrow';
 import KeyboardContainer from './components/KeyboardContainer/KeyboardContainer';
+// import Home from './screens/mainScreen/HomeScreen';
 
 export default function SrcApp() {
   const [isAuth, setIsAuth] = useState(false);
@@ -34,6 +35,11 @@ export default function SrcApp() {
 
         {isAuth && (
           <OtherStack.Navigator screenOptions={mainOptions}>
+            {/*<OtherStack.Screen*/}
+            {/*  name='homeTest'*/}
+            {/*  component={Home}*/}
+            {/*  // options={{title: 'Мапа'}}*/}
+            {/*/>*/}
             <OtherStack.Screen
               name='home'
               options={{headerShown: false}}

@@ -1,31 +1,106 @@
-import { Text, View } from 'react-native';
-
-export default function HomeScreen() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      {/*<View style={st.header}>Публікації</View>*/}
-      <Text>HomeScreen</Text>
-    </View>
-  );
-}
-
-// const st = StyleSheet.create({
-//   container: {
+// import React, { useState, useEffect } from 'react';
+// import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+// import { Camera } from 'expo-camera';
+// import * as MediaLibrary from 'expo-media-library';
+//
+// export default function Home() {
+//   const [hasPermission, setHasPermission] = useState(null);
+//   const [cameraRef, setCameraRef] = useState(null);
+//   const [type, setType] = useState(Camera.Constants.Type.back);
+//
+//   useEffect(() => {
+//     (async () => {
+//       const { status } = await Camera.requestPermissionsAsync();
+//       await MediaLibrary.requestPermissionsAsync();
+//
+//       setHasPermission(status === 'granted');
+//     })();
+//   }, []);
+//
+//   if (hasPermission === null) {
+//     return <View />;
+//   }
+//   if (hasPermission === false) {
+//     return <Text>No access to camera</Text>;
+//   }
+//
+//   return (
+//     <View style={styles.container}>
+//       <Camera
+//         style={styles.camera}
+//         type={type}
+//         ref={(ref) => {
+//           setCameraRef(ref);
+//         }}
+//       >
+//         <View style={styles.photoView}>
+//           <TouchableOpacity
+//             style={styles.flipContainer}
+//             onPress={() => {
+//               setType(
+//                 type === Camera.Constants.Type.back
+//                   ? Camera.Constants.Type.front
+//                   : Camera.Constants.Type.back
+//               );
+//             }}
+//           >
+//             <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+//               {' '}
+//               Flip{' '}
+//             </Text>
+//           </TouchableOpacity>
+//           <TouchableOpacity
+//             style={styles.button}
+//             onPress={async () => {
+//               if (cameraRef) {
+//                 const { uri } = await cameraRef.takePictureAsync();
+//                 await MediaLibrary.createAssetAsync(uri);
+//               }
+//             }}
+//           >
+//             <View style={styles.takePhotoOut}>
+//               <View style={styles.takePhotoInner}><Text>!!!</Text></View>
+//             </View>
+//           </TouchableOpacity>
+//         </View>
+//       </Camera>
+//     </View>
+//   );
+// }
+//
+// const styles = StyleSheet.create({
+//   container: { flex: 1 },
+//   camera: { flex: 1 },
+//   photoView: {
 //     flex: 1,
+//     backgroundColor: 'transparent',
+//     justifyContent: 'flex-end',
 //   },
-//   header: {
-//     height: 88,
-//     paddingTop: 32,
-//     paddingHorizontal: 16,
-//     paddingBottom: 144,
-//     backgroundColor: '#ffffff',
-//     borderTopLeftRadius: 25,
-//     borderTopRightRadius: 25,
+//
+//   flipContainer: {
+//     flex: 0.1,
+//     alignSelf: 'flex-end',
+//   },
+//
+//   button: { alignSelf: 'center' },
+//
+//   takePhotoOut: {
+//     borderWidth: 2,
+//     borderColor: 'white',
+//     height: 50,
+//     width: 50,
+//     display: 'flex',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     borderRadius: 50,
+//   },
+//
+//   takePhotoInner: {
+//     borderWidth: 2,
+//     borderColor: 'white',
+//     height: 40,
+//     width: 40,
+//     backgroundColor: 'white',
+//     borderRadius: 50,
 //   },
 // });

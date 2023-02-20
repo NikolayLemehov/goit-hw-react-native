@@ -33,7 +33,7 @@ export const style = StyleSheet.create({
     lineHeight: 19,
     color: '#BDBDBD',
   },
-  cameraBtnWrapper: {
+  cameraBtnWrapper: { // TODO need opacity control, for example 0.7
     position: 'absolute',
     zIndex: 2,
   },

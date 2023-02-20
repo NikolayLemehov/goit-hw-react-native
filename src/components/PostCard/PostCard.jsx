@@ -10,8 +10,8 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function PostCard(
   {
-    messageCount, likeCount, title, location, locationData,
-    imgUrl = require('../../assets/images/posts/img03.jpg'),
+    messageCount, likeCount, title, location, locationData, imgUri,
+    imgUrl,
   }) {
   // const source = `../../assets/images/posts/${imgUrl}`
   const navigation = useNavigation();
@@ -19,7 +19,11 @@ export default function PostCard(
     <View style={s.container}>
       <Image
         style={s.image}
-        source={imgUrl}
+        source={(() => {
+          if (imgUrl) return imgUrl;
+          if (imgUri) return {uri: imgUri};
+          return false;
+        })()}
       />
       <Text style={s.title}>{title}</Text>
       <View style={s.dataWrapper}>

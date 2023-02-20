@@ -24,7 +24,8 @@ export default function MainTabNav({setIsAuth}) {
         name='create'
         options={({navigation}) => (mainTab.options.getPostCreation(navigation))}
       >
-        {() => <CreatePostsScreen
+        {(props) => <CreatePostsScreen
+          {...props}
           imgUrl={require('../assets/images/posts/img01.jpg')}
           // imgUrl={false}
         />}
