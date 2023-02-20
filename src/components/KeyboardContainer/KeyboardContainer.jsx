@@ -13,11 +13,11 @@ export default function KeyboardContainer({ children, style = {} }) {
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={[{flex: 1}, style]} onLayout={onLayoutRootView}>
+      <View style={[{flex: 1}, style]} onLayout={onLayoutRootView}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           {children}
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </View>
     </KeyboardAvoidingView>
   );
 }
