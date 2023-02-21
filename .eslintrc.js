@@ -28,6 +28,7 @@ module.exports = {
     'no-empty-function': 'off',
     'react/display-name': 'off',
     'react/prop-types': 'off',
+    'react/no-unescaped-entities': 'off',
   },
   settings: {
     react: {
