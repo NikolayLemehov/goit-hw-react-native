@@ -5,6 +5,7 @@ import PostCard from '../../../components/PostCard/PostCard';
 import {useContext, useEffect} from 'react';
 import uuid from 'react-native-uuid';
 import {postsCtx} from '../../../context/PostsCtx';
+import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
 
 // const { postList } = data;
 
@@ -31,38 +32,40 @@ export default function PostsScreen({route}) {
 
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View style={{
-        paddingHorizontal: 16,
-        paddingVertical: 32,
-        backgroundColor: '#ffffff',
-      }}>
-        <View style={[st.userCard, { marginBottom: 32 }]}>
-          <Image style={st.image} source={require('../../../assets/images/avatar.png')} />
-          <View style={st.userCardContent}>
-            <Text style={st.userCardName}>Natali Romanova</Text>
-            <Text style={st.userCardEmail}>email@example.com</Text>
+    <KeyboardContainer>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{
+          paddingHorizontal: 16,
+          paddingVertical: 32,
+          backgroundColor: '#ffffff',
+        }}>
+          <View style={[st.userCard, { marginBottom: 32 }]}>
+            <Image style={st.image} source={require('../../../assets/images/avatar.png')} />
+            <View style={st.userCardContent}>
+              <Text style={st.userCardName}>Natali Romanova</Text>
+              <Text style={st.userCardEmail}>email@example.com</Text>
+            </View>
+          </View>
+
+          <View>
+            {posts.map((it) => (
+              <View key={it.id} style={{ marginBottom: 10 }}>
+                <PostCard
+                  title={it.title}
+                  likeCount={it.likeCount}
+                  imgUrl={it.imgUrl}
+                  imgUri={it.imgUri}
+                  location={it.location}
+                  locationData={it.locationData}
+                  comments={it.comments}
+                />
+              </View>
+            ))}
+            {/*<View style={{ height: 50 }} />*/}
           </View>
         </View>
-
-        <View>
-          {posts.map((it) => (
-            <View key={it.id} style={{ marginBottom: 10 }}>
-              <PostCard
-                title={it.title}
-                likeCount={it.likeCount}
-                imgUrl={it.imgUrl}
-                imgUri={it.imgUri}
-                location={it.location}
-                locationData={it.locationData}
-                comments={it.comments}
-              />
-            </View>
-          ))}
-          {/*<View style={{ height: 50 }} />*/}
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardContainer>
   );
 }
 

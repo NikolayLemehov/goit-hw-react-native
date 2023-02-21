@@ -7,6 +7,7 @@ import TrashIcon from '../../../components/svg/TrashIcon';
 import {useEffect, useState} from 'react';
 import {useKeyboardShow} from '../../../hooks/useKeyboardShow';
 import CameraComponent from '../../../components/CameraComponent/CameraComponent';
+import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
 
 
 const initValues = { title: '', place: ''};
@@ -14,7 +15,7 @@ const initValues = { title: '', place: ''};
 export default function CreatePostsScreen({ imgUrl, navigation }) {
   const [photoUri, setPhotoUri] = useState('');
   const [values, setValues] = useState(initValues);
-  const [isShowKeyboard] = useKeyboardShow();
+  const {isShowKeyboard} = useKeyboardShow();
   const [placeLocation, setPlaceLocation] = useState(null);
 
 
@@ -51,59 +52,61 @@ export default function CreatePostsScreen({ imgUrl, navigation }) {
 
 
   return (
-    <View style={s.container}>
-      <View style={{ marginBottom: 32 }}>
-        {isShowKeyboard
-          ?
-          <View>
-            {photoUri
-              ? <Image style={{width: 50, height: 50}} source={{uri: photoUri}}/>
-              : <Text>Фото поки ще не зроблено</Text>
-            }
-          </View>
-          :
-          <>
-            <View style={[s.imgWrapper, { marginBottom: 8 }]}>
-              <CameraComponent
-                photoUri={photoUri}
-                setPhotoUri={setPhotoUri}
-              />
+    <KeyboardContainer>
+      <View style={s.container}>
+        <View style={{ marginBottom: 32 }}>
+          {isShowKeyboard
+            ?
+            <View>
+              {photoUri
+                ? <Image style={{width: 50, height: 50}} source={{uri: photoUri}}/>
+                : <Text>Фото поки ще не зроблено</Text>
+              }
             </View>
-            <Text style={s.imgText}>{imgUrl ? 'Редагувати' : 'Завантажте'} фото</Text>
-          </>
-        }
-      </View>
-      <View style={[s.inputWrapper, { marginBottom: 16 }]}>
-        <TextInput
-          style={s.input}
-          placeholder='Назва...' // TODO make roboto 400
-          placeholderTextColor='#BDBDBD'
-          value={values.title}
-          onChangeText={v => onChangeText(v, 'title')}
-        />
-      </View>
-      <View style={[s.inputWrapper, { marginBottom: 32 }]}>
-        <MapPinIcon style={s.inputIcon} />
-        <TextInput
-          style={s.input}
-          placeholder='Місцевість...'
-          placeholderTextColor='#BDBDBD'
-          value={values.place}
-          onChangeText={v => onChangeText(v, 'place')}
-        />
-      </View>
-      <Btn
-        onPress={sendPost}
-        text='Опублікувати'
+            :
+            <>
+              <View style={[s.imgWrapper, { marginBottom: 8 }]}>
+                <CameraComponent
+                  photoUri={photoUri}
+                  setPhotoUri={setPhotoUri}
+                />
+              </View>
+              <Text style={s.imgText}>{imgUrl ? 'Редагувати' : 'Завантажте'} фото</Text>
+            </>
+          }
+        </View>
+        <View style={[s.inputWrapper, { marginBottom: 16 }]}>
+          <TextInput
+            style={s.input}
+            placeholder='Назва...' // TODO make roboto 400
+            placeholderTextColor='#BDBDBD'
+            value={values.title}
+            onChangeText={v => onChangeText(v, 'title')}
+          />
+        </View>
+        <View style={[s.inputWrapper, { marginBottom: 32 }]}>
+          <MapPinIcon style={s.inputIcon} />
+          <TextInput
+            style={s.input}
+            placeholder='Місцевість...'
+            placeholderTextColor='#BDBDBD'
+            value={values.place}
+            onChangeText={v => onChangeText(v, 'place')}
+          />
+        </View>
+        <Btn
+          onPress={sendPost}
+          text='Опублікувати'
         // disabled
-      />
-      <TouchableOpacity
-        style={{marginTop: 'auto', alignSelf: 'center'}}
-        activeOpacity={0.7}
-        onPress={onPressReset}
-      >
-        <TrashIcon />
-      </TouchableOpacity>
-    </View>
+        />
+        <TouchableOpacity
+          style={{marginTop: 'auto', alignSelf: 'center'}}
+          activeOpacity={0.7}
+          onPress={onPressReset}
+        >
+          <TrashIcon />
+        </TouchableOpacity>
+      </View>
+    </KeyboardContainer>
   );
 }

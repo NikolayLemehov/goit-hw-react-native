@@ -1,7 +1,7 @@
 import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, View } from 'react-native';
 import { useFont } from '../../hooks/useFont';
 
-export default function KeyboardContainer({ children, style = {} }) {
+export default function KeyboardContainer({ children, style = {}, keyboardStyle = {} }) {
   const { isReady, onLayoutRootView } = useFont();
 
   if (!isReady) {
@@ -10,12 +10,14 @@ export default function KeyboardContainer({ children, style = {} }) {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={[{ flex: 1, maxHeight: '100%' }, keyboardStyle]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <View style={[{flex: 1}, style]} onLayout={onLayoutRootView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          {children}
+          <View style={{flex: 1}}>
+            {children}
+          </View>
         </TouchableWithoutFeedback>
       </View>
     </KeyboardAvoidingView>
