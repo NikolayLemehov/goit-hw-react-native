@@ -5,8 +5,8 @@ import MapPinIcon from '../../../components/svg/MapPinIcon';
 import Btn from '../../../components/Btn/Btn';
 import TrashIcon from '../../../components/svg/TrashIcon';
 import {useEffect, useState} from 'react';
-import CameraComponent from '../CameraComponent';
 import {useKeyboardShow} from '../../../hooks/useKeyboardShow';
+import CameraComponent from '../../../components/CameraComponent/CameraComponent';
 
 
 const initValues = { title: '', place: ''};

@@ -58,8 +58,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    borderWidth: 1,
-    borderColor: 'red',
   },
   camera: {
     flex: 1,
@@ -77,8 +75,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: 'yellow',
   },
   button: {
     flex: 1,
