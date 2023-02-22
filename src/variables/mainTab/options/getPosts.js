@@ -1,17 +1,15 @@
 import { TouchableOpacity } from 'react-native';
 import LogOutIcon from '../../../components/svg/LogOutIcon';
 import GridIcon from '../../../components/svg/GridIcon';
+import authOperations from '../../../redux/auth/authOperations';
 
-export const getPosts = (setIsAuth) => ({
+export const getPosts = (dispatch) => ({
   title: 'Публікації',
   headerRight: (props) => {
     return (
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => {
-          setIsAuth(false);
-          // console.log(props);
-        }}
+        onPress={() => dispatch(authOperations.authLogout())}
         style={{
           flex: 1,
           justifyContent: 'center',

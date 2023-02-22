@@ -1,35 +1,21 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { fontFamily } from '../../../variables/fontFamily';
 import PostCard from '../../../components/PostCard/PostCard';
-// import data from '../../../data';
-import {useContext, useEffect} from 'react';
-import uuid from 'react-native-uuid';
-import {postsCtx} from '../../../context/PostsCtx';
+import {useEffect} from 'react';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
+import postOperation from '../../../redux/posts/postsOperation';
+import {useDispatch, useSelector} from 'react-redux';
+import postsSelectors from '../../../redux/posts/postsSelectors';
+import authSelectors from '../../../redux/auth/authSelectors';
 
-// const { postList } = data;
-
-export default function PostsScreen({route}) {
-  // const [posts, setPosts] = useState(postList);
-  const {posts, setPosts} = useContext(postsCtx);
+export default function PostsScreen() {
+  const posts = useSelector(postsSelectors.getPosts);
+  const user = useSelector(authSelectors.getUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!route.params) return;
-    const data = route.params.newPost;
-    const id = uuid.v4();
-    const newPost = {
-      id,
-      title: data.title,
-      messageCount: 0,
-      likeCount: 0,
-      imgUri: data.photoUri,
-      location: data.place,
-      locationData: { latitude: data.placeLocation.latitude, longitude: data.placeLocation.longitude },
-      comments: []
-    };
-    setPosts(p => [newPost, ...p]);
-  }, [route.params, setPosts]);
-
+    dispatch(postOperation.getAllPosts());
+  }, [dispatch]);
 
   return (
     <KeyboardContainer>
@@ -42,8 +28,8 @@ export default function PostsScreen({route}) {
           <View style={[st.userCard, { marginBottom: 32 }]}>
             <Image style={st.image} source={require('../../../assets/images/avatar.png')} />
             <View style={st.userCardContent}>
-              <Text style={st.userCardName}>Natali Romanova</Text>
-              <Text style={st.userCardEmail}>email@example.com</Text>
+              <Text style={st.userCardName}>{user.nickName}</Text>
+              <Text style={st.userCardEmail}>{user.userEmail}</Text>
             </View>
           </View>
 

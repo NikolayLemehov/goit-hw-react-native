@@ -3,9 +3,11 @@ import PostsScreen from '../screens/mainScreen/PostsScreen/PostsScreen';
 import CreatePostsScreen from '../screens/mainScreen/CreatePostsScreen/CreatePostsScreen';
 import ProfileScreen from '../screens/mainScreen/ProfileScreen/ProfileScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useDispatch} from 'react-redux';
 
 export default function MainTabNav({setIsAuth}) {
   const MainTab = createBottomTabNavigator();
+  const dispatch = useDispatch();
 
   return (
     <MainTab.Navigator
@@ -17,7 +19,7 @@ export default function MainTabNav({setIsAuth}) {
       <MainTab.Screen
         name='posts'
         component={PostsScreen}
-        options={mainTab.options.getPosts(setIsAuth)}
+        options={mainTab.options.getPosts(dispatch)}
       />
 
       <MainTab.Screen

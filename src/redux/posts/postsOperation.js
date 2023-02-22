@@ -6,15 +6,12 @@ import {
   getCountFromServer,
   where,
 } from 'firebase/firestore';
-import app from '../../firebase/config';
-import { getFirestore } from 'firebase/firestore';
+import {db} from '../../firebase/config';
 
 import { postsAction } from './postsSlice';
 
 const getAllPosts = () => async (dispatch, getState) => {
   try {
-    const db = getFirestore(app);
-    // Get data from state
     const { userId } = getState().auth;
 
     // get all posts
@@ -61,7 +58,6 @@ const getAllPosts = () => async (dispatch, getState) => {
 
 const getOwnPosts = () => async (dispatch, getState) => {
   try {
-    const db = getFirestore(app);
     const { userId } = getState().auth;
     const q = query(collection(db, 'posts'), where('userId', '==', userId));
     const posts = await getDocs(q);
@@ -106,13 +102,15 @@ const getOwnPosts = () => async (dispatch, getState) => {
 };
 
 const uploadPostToServer = (post) => async (dispatch) => {
-  const db = getFirestore(app);
-  await addDoc(collection(db, 'posts'), {
-    ...post,
-  });
-
-  dispatch(getAllPosts());
-  dispatch(getOwnPosts());
+  try {
+    await addDoc(collection(db, 'posts'), {
+      ...post,
+    });
+    dispatch(getAllPosts());
+    dispatch(getOwnPosts());
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const postOperation = {

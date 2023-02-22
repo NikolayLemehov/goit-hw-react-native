@@ -1,22 +1,26 @@
 import { FlatList, ImageBackground, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { style as s } from './ProfileScreen.style';
 import Avatar from '../../../components/Avatar/Avatar';
-import {useContext, useState} from 'react';
+import {useState} from 'react';
 import LogOutIcon from '../../../components/svg/LogOutIcon';
 import { commonStyle } from '../../../styles/commonStyle';
-// import { postList } from '../../../data/postList';
 import PostCard from '../../../components/PostCard/PostCard';
-import {postsCtx} from '../../../context/PostsCtx';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
+import {useDispatch, useSelector} from 'react-redux';
+import authSelectors from '../../../redux/auth/authSelectors';
+import postsSelectors from '../../../redux/posts/postsSelectors';
+import authOperations from '../../../redux/auth/authOperations';
 
 const Empty = ({ height, ...another }) => <View
   style={{ backgroundColor: '#ffffff', height }}
   {...another}
 />;
 
-export default function ProfileScreen({setIsAuth}) {
-  const {posts} = useContext(postsCtx);
+export default function ProfileScreen() {
+  const posts = useSelector(postsSelectors.getPosts);
   const [isEmptyAvatar, setIsEmptyAvatar] = useState(true);
+  const user = useSelector(authSelectors.getUser);
+  const dispatch = useDispatch();
 
   return (
     <KeyboardContainer>
@@ -28,18 +32,11 @@ export default function ProfileScreen({setIsAuth}) {
         }}
       >
         <ImageBackground
-          style={[s.bg, {
-          // borderWidth: 1,
-          // borderColor: 'blue',
-          }]}
+          style={s.bg}
           source={require('../../../assets/images/bg.jpg')}
         >
           <SafeAreaView
-            style={{
-              flex: 1,
-            // borderWidth: 1,
-            // borderColor: 'red',
-            }}
+            style={{flex: 1}}
           >
             <FlatList
               data={posts}
@@ -53,12 +50,12 @@ export default function ProfileScreen({setIsAuth}) {
 
                   <TouchableOpacity
                     activeOpacity={0.7}
-                    onPress={() => setIsAuth(false)}
+                    onPress={() => dispatch(authOperations.authLogout())}
                     style={s.exitBtn}>
                     <LogOutIcon />
                   </TouchableOpacity>
 
-                  <Text style={[commonStyle.title]}>Natali Romanova</Text>
+                  <Text style={[commonStyle.title]}>{user.nickName}</Text>
                 </View>
               }
               ItemSeparatorComponent={() => <Empty height={32} />}
@@ -87,12 +84,8 @@ export default function ProfileScreen({setIsAuth}) {
             <View style={{
               marginTop: -1,
               flexGrow: 10 ** 10,
-              // marginTop: 25,
               width: '100%',
-              // height: 100,
               backgroundColor: '#ffffff',
-            // borderWidth: 2,
-            // borderColor: 'yellow',
             }} />
           </SafeAreaView>
         </ImageBackground>

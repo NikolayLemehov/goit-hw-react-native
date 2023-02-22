@@ -8,7 +8,10 @@ import {useEffect, useState} from 'react';
 import {useKeyboardShow} from '../../../hooks/useKeyboardShow';
 import CameraComponent from '../../../components/CameraComponent/CameraComponent';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
-
+import uploadPhotoToServer from '../../../api/uploadPhotoToServer';
+import uuid from 'react-native-uuid';
+import postOperation from '../../../redux/posts/postsOperation';
+import {useDispatch} from 'react-redux';
 
 const initValues = { title: '', place: ''};
 
@@ -17,18 +20,36 @@ export default function CreatePostsScreen({ imgUrl, navigation }) {
   const [values, setValues] = useState(initValues);
   const {isShowKeyboard} = useKeyboardShow();
   const [placeLocation, setPlaceLocation] = useState(null);
+  const dispatch = useDispatch();
 
 
   const onChangeText = (value, name) => {
     setValues(v => ({ ...v, [name]: value }));
   };
 
-  const sendPost = () => {
-    const result = {...values, photoUri, placeLocation};
-    navigation.navigate('posts', {newPost: result});
+  const sendPost = async () => {
+    const photoUrl = await uploadPhotoToServer(photoUri);
+    const data = {...values, photoUri: photoUrl, placeLocation, createdAt: Date.now()};
+
+    const newPost = {
+      id: uuid.v4(),
+      title: data.title,
+      messageCount: 0,
+      likeCount: 0,
+      imgUri: data.photoUri,
+      location: data.place,
+      locationData: {
+        latitude: data?.placeLocation?.latitude ?? 0,
+        longitude: data?.placeLocation?.longitude ?? 0,
+      },
+      comments: []
+    };
+    dispatch(postOperation.uploadPostToServer(newPost));
+
+    navigation.navigate('posts');
   };
 
-  const onPressReset = () => {
+  const onPressReset =  () => {
     setValues(initValues);
     setPhotoUri('');
   };

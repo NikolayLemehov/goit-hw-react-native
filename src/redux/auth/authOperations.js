@@ -13,7 +13,7 @@ const authLogin =
     async (dispatch) => {
       try {
         const user = await signInWithEmailAndPassword(auth, email, password);
-        console.log(user.user);
+        // console.log(user.user);
         dispatch(
           authSlice.actions.updateUserProfile({
             userId: user.user.uid,
@@ -32,7 +32,6 @@ const authRegister =
     async (dispatch) => {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
-        console.log({ email, password, nickname });
         await updateProfile(auth.currentUser, {
           displayName: nickname,
         });

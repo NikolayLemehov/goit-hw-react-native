@@ -15,9 +15,9 @@ export default function KeyboardContainer({ children, style = {}, keyboardStyle 
     >
       <View style={[{flex: 1}, style]} onLayout={onLayoutRootView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={{flex: 1}}>
-            {children}
-          </View>
+          {/*<View style={{flex: 1}}>*/}
+          {children}
+          {/*</View>*/}
         </TouchableWithoutFeedback>
       </View>
     </KeyboardAvoidingView>

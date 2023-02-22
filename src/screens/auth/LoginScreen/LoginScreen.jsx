@@ -14,6 +14,7 @@ import {commonStyle} from '../../../styles/commonStyle';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
 import {useDispatch} from 'react-redux';
 import authOperations from '../../../redux/auth/authOperations';
+import '../../../firebase/config';
 
 const initValues = {email: 'nick@mail.com', password: '1234qwerA'};
 const initFocus = {email: false, password: false};
