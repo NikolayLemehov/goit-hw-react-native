@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import RegistrationScreen from './screens/auth/RegistrationScreen/RegistrationScreen';
@@ -10,10 +9,11 @@ import {fontFamily} from './variables/fontFamily';
 import LeftNavArrow from './components/LeftNavArrow/LeftNavArrow';
 // import KeyboardContainer from './components/KeyboardContainer/KeyboardContainer';
 import PostsCtx, {postsCtx} from './context/PostsCtx';
+import {useSelector} from 'react-redux';
 // import Home from './screens/mainScreen/HomeScreen';
 
 export default function SrcApp() {
-  const [isAuth, setIsAuth] = useState(false);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const AuthStack = createStackNavigator();
   const OtherStack = createStackNavigator();
@@ -23,19 +23,20 @@ export default function SrcApp() {
       {/*<KeyboardContainer>*/}
       <NavigationContainer>
 
-        {!isAuth && (
+        {!currentUser && (
           <AuthStack.Navigator screenOptions={{headerShown: false}}>
-            <AuthStack.Screen name='registration'>
-              {(props) => <RegistrationScreen {...props} setIsAuth={setIsAuth}/>}
+            <AuthStack.Screen name='login'>
+              {(props) => <LoginScreen {...props}/>}
             </AuthStack.Screen>
 
-            <AuthStack.Screen name='login'>
-              {(props) => <LoginScreen {...props} setIsAuth={setIsAuth}/>}
+            <AuthStack.Screen name='registration'>
+              {(props) => <RegistrationScreen {...props}/>}
             </AuthStack.Screen>
+
           </AuthStack.Navigator>
         )}
 
-        {isAuth && (
+        {currentUser && (
           <OtherStack.Navigator screenOptions={mainOptions}>
             {/*<OtherStack.Screen*/}
             {/*  name='homeTest'*/}
@@ -46,7 +47,7 @@ export default function SrcApp() {
               name='home'
               options={{headerShown: false}}
             >
-              {props => <MainTabNav {...props} setIsAuth={setIsAuth}/>}
+              {props => <MainTabNav {...props}/>}
             </OtherStack.Screen>
             <OtherStack.Screen
               name='map'

@@ -12,15 +12,19 @@ import {authStyles as s} from '../auth.styles';
 import {useKeyboardShow} from '../../../hooks/useKeyboardShow';
 import {commonStyle} from '../../../styles/commonStyle';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
+import {useDispatch} from 'react-redux';
+import authOperations from '../../../redux/auth/authOperations';
 
-const initValues = {email: '', password: ''};
+const initValues = {email: 'nick@mail.com', password: '1234qwerA'};
 const initFocus = {email: false, password: false};
 
-export default function LoginScreen({setIsAuth, navigation}) {
+export default function LoginScreen({navigation}) {
   const {isShowKeyboard, setIsShowKeyboard} = useKeyboardShow();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
   const [hasFocus, setHasFocus] = useState(initFocus);
+  const dispatch = useDispatch();
+
   const onChangeText = (value, name) => {
     setValues(v => ({...v, [name]: value}));
   };
@@ -32,6 +36,11 @@ export default function LoginScreen({setIsAuth, navigation}) {
 
   const onInputBlur = (name) => {
     setHasFocus(p => ({...p, [name]: false}));
+  };
+
+  const onPressSubmitBtn = () => {
+    dispatch(authOperations.authLogin(values));
+    setValues(initValues);
   };
 
   return (
@@ -46,6 +55,7 @@ export default function LoginScreen({setIsAuth, navigation}) {
               keyboardType='email-address'
               textContentType='emailAddress'
               placeholder='Адреса електроної пошти'
+              value={values.email}
               onChangeText={v => onChangeText(v, 'email')}
               onFocus={() => onInputFocus('email')}
               onBlur={() => onInputBlur('email')}
@@ -58,6 +68,7 @@ export default function LoginScreen({setIsAuth, navigation}) {
                 style={s.input}
                 secureTextEntry={!isShowPassword}
                 placeholder='Пароль'
+                value={values.password}
                 onChangeText={v => onChangeText(v, 'password')}
                 onFocus={() => onInputFocus('password')}
                 onBlur={() => onInputBlur('password')}
@@ -76,10 +87,7 @@ export default function LoginScreen({setIsAuth, navigation}) {
             <>
               <View style={{marginBottom: 16}}>
                 <Btn
-                  onPress={() => {
-                    console.log(values);
-                    setIsAuth(true);
-                  }}
+                  onPress={onPressSubmitBtn}
                   text='Войти'
                 />
               </View>
