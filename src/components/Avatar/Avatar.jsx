@@ -1,17 +1,28 @@
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import AddIcon from '../svg/AddIcon/AddIcon';
 import DeleteIcon from '../svg/DeleteIcon/DeleteIcon';
 
-export default function Avatar({ isEmpty, onClickBtn }) {
-  const onPressBtn = () => {
-    onClickBtn(!isEmpty);
+export default function Avatar({ avatarImg, setAvatarImg }) {
+  const addImage = async () => {
+    if (avatarImg) return setAvatarImg('');
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setAvatarImg(result.assets[0].uri);
+    }
   };
 
   return (
     <View style={st.container}>
-      {!isEmpty && <Image style={st.img} source={require('../../assets/images/avatar.png')} />}
-      <TouchableOpacity style={st.btn} onPress={onPressBtn}>
-        {isEmpty ? <AddIcon /> : <DeleteIcon />}
+      {avatarImg && <Image style={st.img} source={{uri: avatarImg}} />}
+      <TouchableOpacity style={st.btn} onPress={addImage}>
+        {!avatarImg ? <AddIcon /> : <DeleteIcon />}
       </TouchableOpacity>
     </View>
   );

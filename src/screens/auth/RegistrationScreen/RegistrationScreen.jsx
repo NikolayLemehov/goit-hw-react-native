@@ -23,7 +23,7 @@ export default function RegistrationScreen({ navigation }) {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [values, setValues] = useState(initValues);
   const [hasFocus, setHasFocus] = useState(initFocus);
-  const [isEmptyAvatar, setIsEmptyAvatar] = useState(true);
+  const [avatarImg, setAvatarImg] = useState('');
   const {isShowKeyboard, setIsShowKeyboard} = useKeyboardShow();
   const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ export default function RegistrationScreen({ navigation }) {
 
           <View style={st.avatarWrapper}>
             <View style={st.avatar}>
-              <Avatar isEmpty={isEmptyAvatar} onClickBtn={setIsEmptyAvatar} />
+              <Avatar avatarImg={avatarImg} setAvatarImg={setAvatarImg} />
             </View>
           </View>
 

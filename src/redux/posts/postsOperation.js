@@ -18,6 +18,7 @@ const getAllPosts = () => async (dispatch, getState) => {
 
     // get all posts
     const posts = await getDocs(collection(db, 'posts'));
+    // console.log('posts::', posts);
 
     // add id to collection and count comments
     const newPosts = posts.docs.map(async (doc) => {
@@ -104,6 +105,7 @@ const getOwnPosts = () => async (dispatch, getState) => {
 };
 
 const uploadPostToServer = (post) => async (dispatch) => {
+  // console.log('post', post);
   try {
     await addDoc(collection(db, 'posts'), {
       ...post,
