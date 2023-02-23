@@ -18,8 +18,8 @@ const Empty = ({ height, ...another }) => <View
 
 export default function ProfileScreen() {
   const posts = useSelector(postsSelectors.getPosts);
-  const [isEmptyAvatar, setIsEmptyAvatar] = useState(true);
   const user = useSelector(authSelectors.getUser);
+  const [avatarImg, setAvatarImg] = useState(user.userAvatar);
   const dispatch = useDispatch();
 
   return (
@@ -44,7 +44,7 @@ export default function ProfileScreen() {
                 <View style={s.inner}>
                   <View style={s.avatarWrapper}>
                     <View style={s.avatar}>
-                      <Avatar isEmpty={isEmptyAvatar} onClickBtn={setIsEmptyAvatar} />
+                      <Avatar avatarImg={avatarImg} setAvatarImg={setAvatarImg} />
                     </View>
                   </View>
 

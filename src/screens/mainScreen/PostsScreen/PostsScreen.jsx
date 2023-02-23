@@ -12,6 +12,7 @@ export default function PostsScreen() {
   const posts = useSelector(postsSelectors.getPosts);
   const user = useSelector(authSelectors.getUser);
   const dispatch = useDispatch();
+  // console.log('user::', user);
 
   useEffect(() => {
     dispatch(postOperation.getAllPosts());
@@ -26,7 +27,7 @@ export default function PostsScreen() {
           backgroundColor: '#ffffff',
         }}>
           <View style={[st.userCard, { marginBottom: 32 }]}>
-            <Image style={st.image} source={require('../../../assets/images/avatar.png')} />
+            <Image style={st.image} source={{uri: user.userAvatar}} />
             <View style={st.userCardContent}>
               <Text style={st.userCardName}>{user.nickName}</Text>
               <Text style={st.userCardEmail}>{user.userEmail}</Text>

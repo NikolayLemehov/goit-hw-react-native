@@ -13,12 +13,13 @@ const authLogin =
     async (dispatch) => {
       try {
         const user = await signInWithEmailAndPassword(auth, email, password);
-        // console.log(user.user);
+        // console.log('user.user::', user.user);
         dispatch(
           authSlice.actions.updateUserProfile({
             userId: user.user.uid,
             nickName: user.user.displayName,
             userEmail: user?.user?.email,
+            userAvatar: user?.user?.photoURL,
           })
         );
         dispatch(authSlice.actions.authCurrentUser(true));
@@ -28,19 +29,22 @@ const authLogin =
     };
 
 const authRegister =
-  ({ email, password, nickname }) =>
+  ({ email, password, nickname, photoURL }) =>
     async (dispatch) => {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(auth.currentUser, {
           displayName: nickname,
+          photoURL,
         });
         const userSuccess = auth.currentUser;
+        // console.log('userSuccess::', userSuccess);
         dispatch(
           authSlice.actions.updateUserProfile({
             userId: userSuccess.uid,
             nickName: userSuccess.displayName,
             userEmail: userSuccess.email,
+            userAvatar: userSuccess.photoURL,
           })
         );
         dispatch(authSlice.actions.authCurrentUser(true));

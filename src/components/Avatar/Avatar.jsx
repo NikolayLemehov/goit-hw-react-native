@@ -2,10 +2,12 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AddIcon from '../svg/AddIcon/AddIcon';
 import DeleteIcon from '../svg/DeleteIcon/DeleteIcon';
+import uploadPhotoToServer, {firebaseStore} from '../../api/uploadPhotoToServer';
 
 export default function Avatar({ avatarImg, setAvatarImg }) {
   const addImage = async () => {
     if (avatarImg) return setAvatarImg('');
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -14,7 +16,8 @@ export default function Avatar({ avatarImg, setAvatarImg }) {
     });
 
     if (!result.canceled) {
-      setAvatarImg(result.assets[0].uri);
+      const photoUrl = await uploadPhotoToServer(result.assets[0].uri, firebaseStore.avatar);
+      setAvatarImg(photoUrl);
     }
   };
 

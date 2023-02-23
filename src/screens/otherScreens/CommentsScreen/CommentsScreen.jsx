@@ -46,22 +46,25 @@ export default function CommentsScreen() {
                 source={{uri: imgUri}}
               />
             </View>}
-          renderItem={({item}) => (
-            <View style={[s.containerItem, {flexDirection: item.isOwner ? 'row-reverse' : 'row'}]}>
-              <Image
-                source={item.userAvatar}
-                style={[s.authorAvatar, {[item.isOwner ? 'marginLeft' : 'marginRight']: 16}]}
-              />
-              <View
-                style={[s.commentWrapper, {[item.isOwner ? 'borderTopRightRadius' : 'borderTopLeftRadius']: 16}]}
-              >
-                <Text style={s.commentAuthor}>{item.comment}</Text>
-                <Text style={[s.commentDate, {textAlign: item.isOwner ? 'left' : 'right'}]}>
-                  {item.date}
-                </Text>
+          renderItem={({item}) => {
+            console.log('item::', item);
+            return (
+              <View style={[s.containerItem, {flexDirection: item.isOwner ? 'row-reverse' : 'row'}]}>
+                <Image
+                  source={item.userAvatar}
+                  style={[s.authorAvatar, {[item.isOwner ? 'marginLeft' : 'marginRight']: 16}]}
+                />
+                <View
+                  style={[s.commentWrapper, {[item.isOwner ? 'borderTopRightRadius' : 'borderTopLeftRadius']: 16}]}
+                >
+                  <Text style={s.commentAuthor}>{item.comment}</Text>
+                  <Text style={[s.commentDate, {textAlign: item.isOwner ? 'left' : 'right'}]}>
+                    {item.date}
+                  </Text>
+                </View>
               </View>
-            </View>
-          )}
+            );
+          }}
           ItemSeparatorComponent={() => <View style={{ height: 24 }}/>}
           ListEmptyComponent={<View style={{
             height: 50,

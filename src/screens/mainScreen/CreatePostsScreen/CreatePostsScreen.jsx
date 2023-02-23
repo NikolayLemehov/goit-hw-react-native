@@ -8,7 +8,7 @@ import {useEffect, useState} from 'react';
 import {useKeyboardShow} from '../../../hooks/useKeyboardShow';
 import CameraComponent from '../../../components/CameraComponent/CameraComponent';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
-import uploadPhotoToServer from '../../../api/uploadPhotoToServer';
+import uploadPhotoToServer, {firebaseStore} from '../../../api/uploadPhotoToServer';
 import uuid from 'react-native-uuid';
 import postOperation from '../../../redux/posts/postsOperation';
 import {useDispatch} from 'react-redux';
@@ -28,7 +28,7 @@ export default function CreatePostsScreen({ imgUrl, navigation }) {
   };
 
   const sendPost = async () => {
-    const photoUrl = await uploadPhotoToServer(photoUri);
+    const photoUrl = await uploadPhotoToServer(photoUri, firebaseStore.post);
     const data = {...values, photoUri: photoUrl, placeLocation, createdAt: Date.now()};
 
     const newPost = {

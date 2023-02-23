@@ -42,7 +42,7 @@ export default function RegistrationScreen({ navigation }) {
 
   const onPressSubmitBtn = () => {
     // console.log('values', values);
-    dispatch(authOperations.authRegister(values));
+    dispatch(authOperations.authRegister({...values, photoURL: avatarImg}));
     setValues(initValues);
   };
 
