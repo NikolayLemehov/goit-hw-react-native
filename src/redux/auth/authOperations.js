@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { authSlice } from './authSlice';
 import { auth } from '../../firebase/config';
+import {postsSlice} from '../posts/postsSlice';
 
 const authLogin =
   ({ email, password }) =>
@@ -57,6 +58,7 @@ const authRegister =
 const authLogout = () => async (dispatch) => {
   await signOut(auth);
   dispatch(authSlice.actions.authLogOut());
+  dispatch(postsSlice.actions.reset());
 };
 
 const authCurrentUser = () => async (dispatch) => {
