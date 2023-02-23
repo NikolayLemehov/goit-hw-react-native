@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
 import postsSelectors from '../../../redux/posts/postsSelectors';
-// import authSelectors from '../../../redux/auth/authSelectors';
+import authSelectors from '../../../redux/auth/authSelectors';
 import postOperation from '../../../redux/posts/postsOperation';
 
 export default function CommentsScreen() {
@@ -19,7 +19,8 @@ export default function CommentsScreen() {
   const sortedComments = [...comments].sort(
     (a, b) => b.dateForSort - a.dateForSort
   );
-  // const { userId } = useSelector(authSelectors.getUser);
+  console.log('sortedComments::', sortedComments);
+  const { userId } = useSelector(authSelectors.getUser);
   useEffect(() => {
     dispatch(postOperation.getAllCommentsByPostId(postId));
 
@@ -47,18 +48,19 @@ export default function CommentsScreen() {
               />
             </View>}
           renderItem={({item}) => {
+            const isOwner = item.authorId === userId;
             console.log('item::', item);
             return (
-              <View style={[s.containerItem, {flexDirection: item.isOwner ? 'row-reverse' : 'row'}]}>
+              <View style={[s.containerItem, {flexDirection: isOwner ? 'row-reverse' : 'row'}]}>
                 <Image
-                  source={item.userAvatar}
-                  style={[s.authorAvatar, {[item.isOwner ? 'marginLeft' : 'marginRight']: 16}]}
+                  source={{uri: item.userAvatar}}
+                  style={[s.authorAvatar, {[isOwner ? 'marginLeft' : 'marginRight']: 16}]}
                 />
                 <View
-                  style={[s.commentWrapper, {[item.isOwner ? 'borderTopRightRadius' : 'borderTopLeftRadius']: 16}]}
+                  style={[s.commentWrapper, {[isOwner ? 'borderTopRightRadius' : 'borderTopLeftRadius']: 0}]}
                 >
                   <Text style={s.commentAuthor}>{item.comment}</Text>
-                  <Text style={[s.commentDate, {textAlign: item.isOwner ? 'left' : 'right'}]}>
+                  <Text style={[s.commentDate, {textAlign: isOwner ? 'left' : 'right'}]}>
                     {item.date}
                   </Text>
                 </View>

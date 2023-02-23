@@ -17,10 +17,16 @@ const Empty = ({ height, ...another }) => <View
 />;
 
 export default function ProfileScreen() {
-  const posts = useSelector(postsSelectors.getPosts);
+  // const posts = useSelector(postsSelectors.getPosts);
   const user = useSelector(authSelectors.getUser);
   const [avatarImg, setAvatarImg] = useState(user.userAvatar);
   const dispatch = useDispatch();
+
+  const posts = useSelector(postsSelectors.getOwnPosts)
+    .slice()
+    .sort((a, b) => {
+      return b.createdAt - a.createdAt;
+    });
 
   return (
     <KeyboardContainer>

@@ -52,6 +52,7 @@ const getAllPosts = () => async (dispatch, getState) => {
 
     // Resolve all promises
     const payload = await Promise.all(newPosts);
+    console.log('payload::', payload);
 
     dispatch(postsAction.updatePosts(payload));
   } catch (error) {
@@ -104,11 +105,13 @@ const getOwnPosts = () => async (dispatch, getState) => {
   }
 };
 
-const uploadPostToServer = (post) => async (dispatch) => {
+const uploadPostToServer = (post) => async (dispatch, getState) => {
   // console.log('post::', post);
+  const { userId } = getState().auth;
   try {
     await addDoc(collection(db, 'posts'), {
       ...post,
+      userId,
     });
     dispatch(getAllPosts());
     dispatch(getOwnPosts());
@@ -129,6 +132,8 @@ const addCommentByPostID = (postId, commentData) => async (dispatch, getState) =
       postId: postId,
       userAvatar: userAvatar,
     };
+
+    console.log('comment::', comment);
 
     const docRef = doc(db, 'posts', postId);
 
