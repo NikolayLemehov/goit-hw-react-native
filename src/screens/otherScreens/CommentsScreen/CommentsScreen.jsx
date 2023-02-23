@@ -2,39 +2,60 @@ import {FlatList, Image, Text, TextInput, TouchableOpacity, View} from 'react-na
 import {style as s} from './CommentsScreen.style';
 import RoundUpIcon from '../../../components/svg/RoundUp';
 import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardContainer';
-import {useKeyboardShow} from '../../../hooks/useKeyboardShow';
+// import {useKeyboardShow} from '../../../hooks/useKeyboardShow';
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useRoute} from '@react-navigation/native';
+import postsSelectors from '../../../redux/posts/postsSelectors';
+// import authSelectors from '../../../redux/auth/authSelectors';
+import postOperation from '../../../redux/posts/postsOperation';
 
-export default function CommentsScreen({route}) {
-  const {keyboardHeight} = useKeyboardShow();
-  console.log(keyboardHeight);
-  const {imgUri, imgUrl, comments} = route.params;
+export default function CommentsScreen() {
+  const [comment, setComment] = useState('');
+  const dispatch = useDispatch();
+  const route = useRoute();
+  const { postId, imgUri } = route.params;
+  const comments = useSelector(postsSelectors.getComments);
+  const sortedComments = [...comments].sort(
+    (a, b) => b.dateForSort - a.dateForSort
+  );
+  // const { userId } = useSelector(authSelectors.getUser);
+  useEffect(() => {
+    dispatch(postOperation.getAllCommentsByPostId(postId));
+
+    return () => {
+      dispatch(postOperation.getAllPosts());
+      dispatch(postOperation.getOwnPosts());
+    };
+  }, [dispatch, postId]);
+
+  const createPost = () => {
+    dispatch(postOperation.addCommentByPostID(postId, comment));
+    setComment('');
+  };
   return (
     <KeyboardContainer>
       <View style={s.container}>
         <FlatList
           style={{paddingHorizontal: 16}}
-          data={comments}
+          data={sortedComments}
           ListHeaderComponent={
             <View style={{paddingVertical: 32}}>
               <Image
                 style={s.image}
-                source={(() => {
-                  if (imgUrl) return imgUrl;
-                  if (imgUri) return {uri: imgUri};
-                  return false;
-                })()}
+                source={{uri: imgUri}}
               />
             </View>}
           renderItem={({item}) => (
             <View style={[s.containerItem, {flexDirection: item.isOwner ? 'row-reverse' : 'row'}]}>
               <Image
-                source={item.ownerAvatar}
+                source={item.userAvatar}
                 style={[s.authorAvatar, {[item.isOwner ? 'marginLeft' : 'marginRight']: 16}]}
               />
               <View
                 style={[s.commentWrapper, {[item.isOwner ? 'borderTopRightRadius' : 'borderTopLeftRadius']: 16}]}
               >
-                <Text style={s.commentAuthor}>{item.text}</Text>
+                <Text style={s.commentAuthor}>{item.comment}</Text>
                 <Text style={[s.commentDate, {textAlign: item.isOwner ? 'left' : 'right'}]}>
                   {item.date}
                 </Text>
@@ -55,15 +76,15 @@ export default function CommentsScreen({route}) {
         >
           <View>
             <TextInput
-            // value={}
-            // onChangeText={}
+              value={comment}
+              onChangeText={(text) => setComment(text)}
               placeholder="Коментувати..."
               placeholderTextColor="#BDBDBD"
               style={s.commentInput}
             />
             <TouchableOpacity
               style={s.iconWrapper}
-              // onPress={}
+              onPress={createPost}
               activeOpacity={0.7}
             >
               <RoundUpIcon />

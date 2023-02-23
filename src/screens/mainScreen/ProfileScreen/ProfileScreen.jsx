@@ -64,11 +64,12 @@ export default function ProfileScreen() {
                   <PostCard
                     title={item.title}
                     likeCount={item.likeCount}
-                    imgUrl={item.imgUrl}
+                    // imgUrl={item.imgUrl}
                     imgUri={item.imgUri}
                     location={item.location}
                     locationData={item.locationData}
                     comments={item.comments}
+                    post={item}
                   />
                 </View>
               )}

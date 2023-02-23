@@ -5,10 +5,12 @@ import {
   query,
   getCountFromServer,
   where,
+  doc,
 } from 'firebase/firestore';
 import {db} from '../../firebase/config';
 
 import { postsAction } from './postsSlice';
+import dateBeautify from '../../helpers/dateBeautify';
 
 const getAllPosts = () => async (dispatch, getState) => {
   try {
@@ -113,10 +115,56 @@ const uploadPostToServer = (post) => async (dispatch) => {
   }
 };
 
+const addCommentByPostID = (postId, commentData) => async (dispatch, getState) => {
+  try {
+    const { nickName, userId, userAvatar } = getState().auth;
+
+    const comment = {
+      comment: commentData,
+      authorName: nickName,
+      authorId: userId,
+      date: Date.now(),
+      postId: postId,
+      userAvatar: userAvatar,
+    };
+
+    const docRef = doc(db, 'posts', postId);
+
+    await addDoc(collection(docRef, 'comments'), { ...comment });
+
+    dispatch(getAllCommentsByPostId(postId));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const getAllCommentsByPostId = (postId) => async (dispatch) => {
+  try {
+    const docRef = doc(db, 'posts', postId);
+
+    const comments = await getDocs(collection(docRef, 'comments'));
+
+    const payload = comments.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+      date: dateBeautify(doc.data().date),
+      dateForSort: doc.data().date,
+    }));
+    console.log('payload', payload);
+
+    dispatch(postsAction.updateCommentsToPost(payload));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+
 const postOperation = {
   getOwnPosts,
   getAllPosts,
   uploadPostToServer,
+  addCommentByPostID,
+  getAllCommentsByPostId,
 };
 
 export default postOperation;

@@ -18,10 +18,10 @@ export const postsSlice = createSlice({
       ...state,
       ownPosts: payload,
     }),
-    /*     updateCommentsToPost: (state, { payload }) => ({
+    updateCommentsToPost: (state, { payload }) => ({
       ...state,
       comments: payload,
-    }), */
+    }),
   },
 });
 
