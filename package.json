@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "lint": "eslint --ext .jsx --ext .js .",
     "lintFix": "eslint --fix --ext .js,.jsx .",
-    "deploy": "expo-publish --release-channel goit-reactnative"
+    "deploy": "expo publish --release-channel goit-reactnative",
+    "deploy2": "eas update --release-channel goit-reactnative"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.2",

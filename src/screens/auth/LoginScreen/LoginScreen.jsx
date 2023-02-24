@@ -16,7 +16,7 @@ import {useDispatch} from 'react-redux';
 import authOperations from '../../../redux/auth/authOperations';
 import '../../../firebase/config';
 
-const initValues = {email: 'nick1@mail.com', password: '1234qwerA'};
+const initValues = {email: 'nick2@mail.com', password: '1234qwerA'};
 const initFocus = {email: false, password: false};
 
 export default function LoginScreen({navigation}) {
