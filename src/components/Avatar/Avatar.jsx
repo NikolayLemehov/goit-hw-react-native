@@ -3,8 +3,14 @@ import * as ImagePicker from 'expo-image-picker';
 import AddIcon from '../svg/AddIcon/AddIcon';
 import DeleteIcon from '../svg/DeleteIcon/DeleteIcon';
 import uploadPhotoToServer, {firebaseStore} from '../../api/uploadPhotoToServer';
+import {useDispatch, useSelector} from 'react-redux';
+import authSelectors from '../../redux/auth/authSelectors';
+import authOperations from '../../redux/auth/authOperations';
 
 export default function Avatar({ avatarImg, setAvatarImg }) {
+  const dispatch = useDispatch();
+  const user = useSelector(authSelectors.getUser);
+
   const addImage = async () => {
     if (avatarImg) return setAvatarImg('');
 
@@ -18,6 +24,9 @@ export default function Avatar({ avatarImg, setAvatarImg }) {
     if (!result.canceled) {
       const photoUrl = await uploadPhotoToServer(result.assets[0].uri, firebaseStore.avatar);
       setAvatarImg(photoUrl);
+      if (user.currentUser) {
+        dispatch(authOperations.authUpdateAvatar(photoUrl));
+      }
     }
   };
 

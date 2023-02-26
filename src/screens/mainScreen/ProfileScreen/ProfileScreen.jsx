@@ -1,7 +1,7 @@
 import { FlatList, ImageBackground, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { style as s } from './ProfileScreen.style';
 import Avatar from '../../../components/Avatar/Avatar';
-import {useState} from 'react';
+import { useState} from 'react';
 import LogOutIcon from '../../../components/svg/LogOutIcon';
 import { commonStyle } from '../../../styles/commonStyle';
 import PostCard from '../../../components/PostCard/PostCard';
