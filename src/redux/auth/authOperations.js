@@ -8,6 +8,7 @@ import {
 import { authSlice } from './authSlice';
 import { auth } from '../../firebase/config';
 import {postsSlice} from '../posts/postsSlice';
+import {toastError} from '../../helpers/toastMessage';
 
 const authLogin = ({ email, password }) =>
   async (dispatch) => {
@@ -24,7 +25,7 @@ const authLogin = ({ email, password }) =>
       );
       dispatch(authSlice.actions.authCurrentUser(true));
     } catch (error) {
-      console.log(error);
+      toastError(error);
     }
   };
 
@@ -47,9 +48,9 @@ const authRegister = ({ email, password, nickname, photoURL }) =>
         })
       );
       dispatch(authSlice.actions.authCurrentUser(true));
-      console.log(userSuccess);
+      // console.log(userSuccess);
     } catch (error) {
-      console.log(error);
+      toastError(error);
     }
   };
 
@@ -58,7 +59,7 @@ const authUpdateAvatar = (photoURL) => async (dispatch) => {
     await updateProfile(auth.currentUser, {
       photoURL,
     });
-    console.log('photoURL', photoURL);
+    // console.log('photoURL', photoURL);
     const userSuccess = auth.currentUser;
     dispatch(
       authSlice.actions.updateUserAvatar({
@@ -66,20 +67,24 @@ const authUpdateAvatar = (photoURL) => async (dispatch) => {
       })
     );
   } catch (error) {
-    console.log(error);
+    toastError(error);
   }
 };
 
 const authLogout = () => async (dispatch) => {
-  await signOut(auth);
-  dispatch(authSlice.actions.authLogOut());
-  dispatch(postsSlice.actions.reset());
+  try {
+    await signOut(auth);
+    dispatch(authSlice.actions.authLogOut());
+    dispatch(postsSlice.actions.reset());
+  } catch (e) {
+    toastError(e);
+  }
 };
 
 const authCurrentUser = () => async (dispatch) => {
   await onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log(user);
+      // console.log(user);
       dispatch(
         authSlice.actions.updateUserProfile({
           userId: user.uid,
