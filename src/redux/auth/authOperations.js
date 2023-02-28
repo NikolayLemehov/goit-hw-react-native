@@ -82,19 +82,23 @@ const authLogout = () => async (dispatch) => {
 };
 
 const authCurrentUser = () => async (dispatch) => {
-  await onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // console.log(user);
-      dispatch(
-        authSlice.actions.updateUserProfile({
-          userId: user.uid,
-          nickName: user.displayName,
-          userEmail: user?.email,
-        })
-      );
-      dispatch(authSlice.actions.authCurrentUser(true));
-    }
-  });
+  try {
+    await onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // console.log(user);
+        dispatch(
+          authSlice.actions.updateUserProfile({
+            userId: user.uid,
+            nickName: user.displayName,
+            userEmail: user?.email,
+          })
+        );
+        dispatch(authSlice.actions.authCurrentUser(true));
+      }
+    });
+  } catch (e) {
+    toastError(e);
+  }
 };
 
 const authOperations = {

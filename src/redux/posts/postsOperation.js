@@ -11,6 +11,7 @@ import {db} from '../../firebase/config';
 
 import { postsAction } from './postsSlice';
 import dateBeautify from '../../helpers/dateBeautify';
+import {toastError} from '../../helpers/toastMessage';
 
 const getAllPosts = () => async (dispatch, getState) => {
   try {
@@ -52,11 +53,10 @@ const getAllPosts = () => async (dispatch, getState) => {
 
     // Resolve all promises
     const payload = await Promise.all(newPosts);
-    console.log('payload::', payload);
 
     dispatch(postsAction.updatePosts(payload));
   } catch (error) {
-    console.log(error.message);
+    toastError(error);
   }
 };
 
@@ -101,7 +101,7 @@ const getOwnPosts = () => async (dispatch, getState) => {
 
     dispatch(postsAction.updateOwnPosts(payload));
   } catch (error) {
-    console.log(error.message);
+    toastError(error);
   }
 };
 
@@ -116,7 +116,7 @@ const uploadPostToServer = (post) => async (dispatch, getState) => {
     dispatch(getAllPosts());
     dispatch(getOwnPosts());
   } catch (e) {
-    console.log(e);
+    toastError(e);
   }
 };
 
@@ -140,8 +140,8 @@ const addCommentByPostID = (postId, commentData) => async (dispatch, getState) =
     await addDoc(collection(docRef, 'comments'), { ...comment });
 
     dispatch(getAllCommentsByPostId(postId));
-  } catch (error) {
-    console.log(error.message);
+  } catch (e) {
+    toastError(e);
   }
 };
 
@@ -160,8 +160,8 @@ const getAllCommentsByPostId = (postId) => async (dispatch) => {
     console.log('payload', payload);
 
     dispatch(postsAction.updateCommentsToPost(payload));
-  } catch (error) {
-    console.log(error.message);
+  } catch (e) {
+    toastError(e);
   }
 };
 
