@@ -1,3 +1,4 @@
+import Toast from 'react-native-toast-message';
 import {
   ImageBackground,
   StyleSheet,
@@ -17,10 +18,10 @@ import authOperations from '../../../redux/auth/authOperations';
 import '../../../firebase/config';
 
 const initValues = {
-  email: '',
-  password: '',
-  // email: 'nick1@mail.com',
-  // password: '1234qwerA',
+  // email: '',
+  // password: '',
+  email: 'nick1@mail.com',
+  password: '1234qwerA',
 };
 const initFocus = {email: false, password: false};
 
@@ -45,66 +46,76 @@ export default function LoginScreen({navigation}) {
   };
 
   const onPressSubmitBtn = () => {
+    if(values.email === '' || values.password === '') {
+      Toast.show({
+        type: 'error',
+        text1: 'Form error:',
+        text2: 'Email та Password повинні бути заповнені.',
+      });
+      return;
+    }
     dispatch(authOperations.authLogin(values));
     setValues(initValues);
   };
 
   return (
     <KeyboardContainer>
-      <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
-        <View style={[styles.inner, {paddingBottom: isShowKeyboard ? 32 : 144}]}>
-          <Text style={[commonStyle.title, {marginBottom: 32}]}>Увійти</Text>
-          <View style={[s.inputWrapper, hasFocus.email && s.inputWrapperFocus, {marginBottom: 16}]}>
-            <TextInput
-              style={s.input}
-              autoComplete='email'
-              keyboardType='email-address'
-              textContentType='emailAddress'
-              placeholder='Адреса електроної пошти'
-              value={values.email}
-              onChangeText={v => onChangeText(v, 'email')}
-              onFocus={() => onInputFocus('email')}
-              onBlur={() => onInputBlur('email')}
-            />
-          </View>
-          <View style={[s.inputWrapper, hasFocus.password && s.inputWrapperFocus,
-            {marginBottom: isShowKeyboard ? 0 : 43}]}>
-            <View style={{flex: 4}}>
+      <View style={{flex: 1}}>
+        <ImageBackground style={styles.bg} source={require('../../../assets/images/bg.jpg')}>
+          <View style={[styles.inner, {paddingBottom: isShowKeyboard ? 32 : 144}]}>
+            <Text style={[commonStyle.title, {marginBottom: 32}]}>Увійти</Text>
+            <View style={[s.inputWrapper, hasFocus.email && s.inputWrapperFocus, {marginBottom: 16}]}>
               <TextInput
                 style={s.input}
-                secureTextEntry={!isShowPassword}
-                placeholder='Пароль'
-                value={values.password}
-                onChangeText={v => onChangeText(v, 'password')}
-                onFocus={() => onInputFocus('password')}
-                onBlur={() => onInputBlur('password')}
+                autoComplete='email'
+                keyboardType='email-address'
+                textContentType='emailAddress'
+                placeholder='Адреса електроної пошти'
+                value={values.email}
+                onChangeText={v => onChangeText(v, 'email')}
+                onFocus={() => onInputFocus('email')}
+                onBlur={() => onInputBlur('email')}
               />
             </View>
-            <View>
-              <TouchableOpacity
-                style={s.btnInput}
-                onPress={() => setIsShowPassword(p => !p)}
-              >
-                <Text style={s.btnInputText}>Показати</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          {!isShowKeyboard && (
-            <>
-              <View style={{marginBottom: 16}}>
-                <Btn
-                  onPress={onPressSubmitBtn}
-                  text='Войти'
+            <View style={[s.inputWrapper, hasFocus.password && s.inputWrapperFocus,
+              {marginBottom: isShowKeyboard ? 0 : 43}]}>
+              <View style={{flex: 4}}>
+                <TextInput
+                  style={s.input}
+                  secureTextEntry={!isShowPassword}
+                  placeholder='Пароль'
+                  value={values.password}
+                  onChangeText={v => onChangeText(v, 'password')}
+                  onFocus={() => onInputFocus('password')}
+                  onBlur={() => onInputBlur('password')}
                 />
               </View>
+              <View>
+                <TouchableOpacity
+                  style={s.btnInput}
+                  onPress={() => setIsShowPassword(p => !p)}
+                >
+                  <Text style={s.btnInputText}>Показати</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {!isShowKeyboard && (
+              <>
+                <View style={{marginBottom: 16}}>
+                  <Btn
+                    onPress={onPressSubmitBtn}
+                    text='Войти'
+                  />
+                </View>
 
-              <Text style={s.text}>
+                <Text style={s.text}>
               Немає акаунта? <Text onPress={() => navigation.navigate('registration')}>Зареєструватись</Text>
-              </Text>
-            </>
-          )}
-        </View>
-      </ImageBackground>
+                </Text>
+              </>
+            )}
+          </View>
+        </ImageBackground>
+      </View>
     </KeyboardContainer>
   );
 }

@@ -1,3 +1,4 @@
+import Toast from 'react-native-toast-message';
 import {
   ImageBackground,
   StyleSheet,
@@ -48,7 +49,23 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   const onPressSubmitBtn = () => {
-    // console.log('values', values);
+    if(avatarImg === '') {
+      Toast.show({
+        type: 'error',
+        text1: 'Avatar error:',
+        text2: 'Avatar повинен бути заповнений',
+      });
+      console.log('onPressSubmitBtn');
+      return;
+    }
+    if(values.email === '' || values.password === '' || values.nickname === '') {
+      Toast.show({
+        type: 'error',
+        text1: 'Form error:',
+        text2: 'Email, Password та Nickname повинні бути заповнені.',
+      });
+      return;
+    }
     dispatch(authOperations.authRegister({...values, photoURL: avatarImg}));
     setValues(initValues);
   };
@@ -129,8 +146,7 @@ export default function RegistrationScreen({ navigation }) {
         </View>
       </ImageBackground>
     </KeyboardContainer>
-  )
-  ;
+  );
 }
 
 const st = StyleSheet.create({
