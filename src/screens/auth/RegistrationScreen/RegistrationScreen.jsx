@@ -16,7 +16,14 @@ import KeyboardContainer from '../../../components/KeyboardContainer/KeyboardCon
 import {useDispatch} from 'react-redux';
 import authOperations from '../../../redux/auth/authOperations';
 
-const initValues = { email: 'nick@mail.com', password: '1234qwerA', nickname: 'Nick' };
+const initValues = {
+  email: '',
+  password: '',
+  nickname: '',
+  // email: 'nick@mail.com',
+  // password: '1234qwerA',
+  // nickname: 'Nick',
+};
 const initFocus = { email: false, password: false, nickname: false };
 
 export default function RegistrationScreen({ navigation }) {
